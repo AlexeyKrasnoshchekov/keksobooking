@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Alex Krasnoshchekov](https://up.htmlacademy.ru/javascript/20/user/1239501).
-* Наставник: `Неизвестно`.
+* Наставник: [Андрей Филяев](https://htmlacademy.ru/profile/id608705).
 
 ---
 
