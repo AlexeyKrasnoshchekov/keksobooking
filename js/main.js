@@ -1,6 +1,5 @@
 'use strict';
 
-// КОНСТАНТЫ
 var MAX_TICKETS_LENGTH = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var TITLE = [
@@ -43,19 +42,13 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function getInt(max) {
-  var num = 0;
-  var i = 1;
-  while (i <= max) {
-    num += 1;
-    i++;
-  }
-  return num;
-}
-
 function getRandomArray(array) {
   var randomArray = [];
-  return randomArray.push(array[getInt(0, array.length + 1)]);
+  var length = getRandomInt(0, array.length);
+  for (var i = 0; i < length; i++) {
+    randomArray.push(array[i]);
+  }
+  return randomArray;
 }
 
 function getRandomTicket(index) {
@@ -64,7 +57,7 @@ function getRandomTicket(index) {
 
   return {
     author: {
-      avatar: 'img/avatars/user0' + getInt(8) + '.png',
+      avatar: 'img/avatars/user0' + (index + 1) + '.png',
     },
     offer: {
       title: TITLE[getRandomInt(0, TITLE.length)],
@@ -95,44 +88,6 @@ function getArrayOfRandomTickets(length) {
   return randomTickets;
 }
 
-/*
-function renderPinCards(tickets) {
-  var pinCardTemplate = document.querySelector("#card").content;
-  var newPinCardTemplate = pinCardTemplate.querySelector(".map__card");
-
-  var fragment = new DocumentFragment();
-  for (var i = 0; i < tickets.length; i++) {
-    var newPinCard = newPinCardTemplate.cloneNode(true);
-    var ticket = tickets[i];
-
-    var avatar = newPinCard.querySelector(".popup__avatar");
-    var title = newPinCard.querySelector(".popup__title");
-    var address = newPinCard.querySelector(".popup__text--address");
-    var type = newPinCard.querySelector(".popup__type");
-    var price = newPinCard.querySelector(".popup__text--price");
-    var timeIn = newPinCard.querySelector(".popup__text--time");
-    var timeOut = newPinCard.querySelector(".popup__text--time");
-    var roomNumber = newPinCard.querySelector("#roomNumber");
-    var capacity = newPinCard.querySelector(".popup__text--capacity");
-    var fetaures = newPinCard.querySelector(".popup__features");
-    var description = newPinCard.querySelector(".popup__description");
-    var photos = newPinCard.querySelector(".popup__photos");
-
-    avatar = ticket.avatar.value;
-    title = ticket.title.value;
-    address = ticket.address.value;
-    type = ticket.type.value;
-    price = ticket.price.value;
-    timeIn = ticket.timeIn.value;
-    timeOut = ticket.timeOut.value;
-
-    fragment.appendChild(newPinCard);
-  }
-
-  map.appendChild(fragment);
-}
-*/
-
 function renderPins(tickets) {
   var pinTemplate = document.querySelector('#pin').content;
   var newPinTemplate = pinTemplate.querySelector('.map__pin');
@@ -158,13 +113,3 @@ map.classList.remove('map--faded');
 
 var randomTickets = getArrayOfRandomTickets(MAX_TICKETS_LENGTH);
 renderPins(randomTickets);
-
-// var pin = mapPins.children;
-
-// renderPinCards(tickets);
-
-// pin.setAttribute('style', 'position:abcolute;left:locationX;top:locationY');
-// pin.setAttribute('src', 'author.avatar');
-// pin.setAttribute('alt', 'offer.title');
-
-// profit
