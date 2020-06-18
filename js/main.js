@@ -108,8 +108,60 @@ function renderPins(tickets) {
   mapPins.appendChild(fragment);
 }
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+var selects = document.querySelectorAll("select");
+for (var select of selects) {
+  select.setAttribute("disabled", "disabled");
+}
 
-var randomTickets = getArrayOfRandomTickets(MAX_TICKETS_LENGTH);
-renderPins(randomTickets);
+var inputs = document.querySelectorAll("input");
+for (var input of inputs) {
+  input.setAttribute("disabled", "disabled");
+}
+
+var mainPin = document.querySelector(".map__pin--main");
+
+mainPin.addEventListener('mousedown', function (evt) {
+  if (event.button == 0) {
+    evt.preventDefault();
+
+    var randomTickets = getArrayOfRandomTickets(MAX_TICKETS_LENGTH);
+    renderPins(randomTickets);
+
+    for (var select of selects) {
+      select.removeAttribute("disabled", "disabled");
+    }
+
+    for (var input of inputs) {
+      input.removeAttribute("disabled", "disabled");
+    }
+
+    var map = document.querySelector('.map');
+    var adForm = document.querySelector('.ad-form');
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+  }
+})
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    for (var select of selects) {
+      select.removeAttribute("disabled", "disabled");
+    }
+  
+    for (var input of inputs) {
+      input.removeAttribute("disabled", "disabled");
+    }
+  
+    var map = document.querySelector('.map');
+    var adForm = document.querySelector('.ad-form');
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+  }
+});
+
+var formSubmit = document.querySelector('.ad-form__submit');
+
+formSubmit.addEventListener('submit', function () {
+  
+  }
+});
