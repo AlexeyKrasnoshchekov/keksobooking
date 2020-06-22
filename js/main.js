@@ -66,7 +66,7 @@ function getRandomTicket(index) {
     },
     offer: {
       title: TITLE[getRandomInt(0, TITLE.length)],
-      address: (location.x, location.y),
+      address: '{{location.x}}' + ', ' + '{{location.y}}',
       price: getRandomInt(0, MAX_PRICE),
       type: TYPES[getRandomInt(0, TYPES.length)],
       rooms: getRandomInt(0, MAX_ROOMS),
@@ -169,15 +169,16 @@ function enableAdForm() {
 
 function updateCurrentOfferLocation(location) {
   var addressInput = document.querySelector('#address');
-  addressInput.value = currentOfferLocation.x + ', ' + currentOfferLocation.y;
+  addressInput.value = location.x + ', ' + location.y;
 }
 
-updateCurrentOfferLocation(location);
+updateCurrentOfferLocation(currentOfferLocation);
 disableMapFilters();
 disableAdForm();
+
 var mainPin = document.querySelector('.map__pin--main');
 
-mainPin.addEventListener('mousedown', function (evt) {
+mainPin.addEventListener('click', function (evt) {
   if (evt.button === 0) {
     evt.preventDefault();
 
@@ -192,95 +193,28 @@ mainPin.addEventListener('mousedown', function (evt) {
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
   }
-})
-
-mainPin.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    for (var select of selects) {
-      select.removeAttribute('disabled', 'disabled');
-    }
-  
-    for (var input of inputs) {
-      input.removeAttribute('disabled', 'disabled');
-    }
-  
-    var map = document.querySelector('.map');
-    var adForm = document.querySelector('.ad-form');
-    map.classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-  }
 });
 
-var formSubmit = document.querySelector('.ad-form__submit');
-var roomNumber = document.querySelector('#room_number');
+// var formSubmit = document.querySelector('.ad-form__submit');
 
-roomNumber.addEventListener('change', function () {
-  
-  var roomValue = Number(roomNumber.value);
-  var capacity = document.querySelector('#capacity');
-  var capacityValue = Number(capacity.value);
+var roomSelectElement = document.querySelector('#room_number');
+var capacitySelectElement = document.querySelector('#capacity');
 
-  console.log('roomValue' + roomValue);
+roomSelectElement.addEventListener('change', validateRoomsAndGuests);
+capacitySelectElement.addEventListener('change', validateRoomsAndGuests);
 
-  if (roomValue === 1) {
-    capacity.addEventListener('change', function () {
-      if (capacityValue != 1) {
-        alert('должен быть 1');
-      } 
-    });
+var validateRoomsAndGuests = function () {
+  var roomsValue = Number(roomSelectElement.value);
+  var capacityValue = Number(capacitySelectElement.value);
+
+  if (capacityValue === 0 && roomsValue !== 100) {
+    capacitySelectElement.setCustomValidity('сообщение');
+  } else if (capacityValue !== 0 && roomsValue === 100) {
+    capacitySelectElement.setCustomValidity('сообщение');
+  } else if (roomsValue < capacityValue) {
+    capacitySelectElement.setCustomValidity('сообщение');
+  } else {
+    capacitySelectElement.setCustomValidity('');
   }
 
- if (roomValue === 2) {
-    capacity.addEventListener('change', function () {
-      if (capacityValue !== 1 && capacityValue !== 2) {
-        alert('должно быть 1 или 2');
-      } 
-    });
-  }
-
-  if (roomValue === 3) {
-    capacity.addEventListener('change', function (evt) {
-      var capacityValue = Number(capacity.value);
-      if (capacityValue !== 1 && capacityValue !== 2 && capacityValue !== 3) {
-        alert('должно быть 1 или 2 или 3');
-      } 
-    });
-  } 
-
- if (roomValue === 100) {
-    capacity.addEventListener('change', function (evt) {
-      var capacityValue = Number(capacity.value);
-      if (capacityValue !== 0) {
-        alert('должно быть не для гостей');
-      } 
-    });
-  } 
-});
-
-/*
-var roomValue = Number(roomNumber.value);
-var capacity = document.querySelector('#capacity');
-var capacityValue = Number(capacity.value);
-
-var changeRoomNumberHandler = function (roomValue) {
-  roomNumber.addEventListener('change', function () {
-  
-    console.log('roomValue' + roomValue);
-  
-    if (roomValue === 1) {
-      capacity.addEventListener('change', function () {
-        if (capacityValue != 1) {
-          alert('должен быть 1');
-        } 
-      });
-    }
-
-  }); 
 };
-
-for (var i = 0; i < roomValue.length; i++) {
-  changeRoomNumberHandler(roomValue[i]);
-}
-*/
-
-
