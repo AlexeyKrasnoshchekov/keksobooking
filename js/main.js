@@ -66,7 +66,7 @@ function getRandomTicket(index) {
     },
     offer: {
       title: TITLE[getRandomInt(0, TITLE.length)],
-      address: '{{location.x}}, {{location.y}}',
+      address: (location.x, location.y),
       price: getRandomInt(0, MAX_PRICE),
       type: TYPES[getRandomInt(0, TYPES.length)],
       rooms: getRandomInt(0, MAX_ROOMS),
