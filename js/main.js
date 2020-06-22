@@ -212,25 +212,75 @@ mainPin.addEventListener('keydown', function (evt) {
 });
 
 var formSubmit = document.querySelector('.ad-form__submit');
-
 var roomNumber = document.querySelector('#room_number');
 
-var capacity = document.querySelector('#capacity');
-
-
-roomNumber.addEventListener('change', function (evt) {
+roomNumber.addEventListener('change', function () {
+  
   var roomValue = Number(roomNumber.value);
+  var capacity = document.querySelector('#capacity');
   var capacityValue = Number(capacity.value);
 
-  console.log('количество комнат ' + roomValue);
-  console.log('количество гостей ' + capacityValue);
+  console.log('roomValue' + roomValue);
 
+  if (roomValue === 1) {
+    capacity.addEventListener('change', function () {
+      if (capacityValue != 1) {
+        alert('должен быть 1');
+      } 
+    });
+  }
+
+ if (roomValue === 2) {
+    capacity.addEventListener('change', function () {
+      if (capacityValue !== 1 && capacityValue !== 2) {
+        alert('должно быть 1 или 2');
+      } 
+    });
+  }
+
+  if (roomValue === 3) {
+    capacity.addEventListener('change', function (evt) {
+      var capacityValue = Number(capacity.value);
+      if (capacityValue !== 1 && capacityValue !== 2 && capacityValue !== 3) {
+        alert('должно быть 1 или 2 или 3');
+      } 
+    });
+  } 
+
+ if (roomValue === 100) {
+    capacity.addEventListener('change', function (evt) {
+      var capacityValue = Number(capacity.value);
+      if (capacityValue !== 0) {
+        alert('должно быть не для гостей');
+      } 
+    });
+  } 
 });
 
-console.log(roomNumber.validity);
+/*
+var roomValue = Number(roomNumber.value);
+var capacity = document.querySelector('#capacity');
+var capacityValue = Number(capacity.value);
 
-capacity.addEventListener('change', function (evt) {
+var changeRoomNumberHandler = function (roomValue) {
+  roomNumber.addEventListener('change', function () {
   
+    console.log('roomValue' + roomValue);
   
-});
+    if (roomValue === 1) {
+      capacity.addEventListener('change', function () {
+        if (capacityValue != 1) {
+          alert('должен быть 1');
+        } 
+      });
+    }
+
+  }); 
+};
+
+for (var i = 0; i < roomValue.length; i++) {
+  changeRoomNumberHandler(roomValue[i]);
+}
+*/
+
 
