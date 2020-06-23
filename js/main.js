@@ -188,18 +188,23 @@ mainPin.addEventListener('click', function (evt) {
 var roomSelectElement = document.querySelector('#room_number');
 var capacitySelectElement = document.querySelector('#capacity');
 
-function validateRoomsAndGuests() {
+function validateRoomsAndGuests(evt) {
+  evt.preventDefault();
   var roomsValue = Number(roomSelectElement.value);
   var capacityValue = Number(capacitySelectElement.value);
 
   if (capacityValue === 0 && roomsValue !== 100) {
-    capacitySelectElement.setCustomValidity('сообщение');
+    capacitySelectElement.setCustomValidity('ошибка в Количестве мест');
+    capacitySelectElement.reportValidity();
   } else if (capacityValue !== 0 && roomsValue === 100) {
-    capacitySelectElement.setCustomValidity('сообщение');
+    capacitySelectElement.setCustomValidity('ошибка в Количестве мест');
+    capacitySelectElement.reportValidity();
   } else if (roomsValue < capacityValue) {
-    capacitySelectElement.setCustomValidity('сообщение');
+    capacitySelectElement.setCustomValidity('ошибка в Количестве мест');
+    capacitySelectElement.reportValidity();
   } else {
     capacitySelectElement.setCustomValidity('');
+
   }
 
 }
