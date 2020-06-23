@@ -20,6 +20,10 @@ var X_MIN_COORDINATE = 0;
 var X_MAX_COORDINATE = 1200;
 var Y_MIN_COORDINATE = 130;
 var Y_MAX_COORDINATE = 630;
+var MAIN_PIN_X = (X_MAX_COORDINATE - X_MIN_COORDINATE) / 2;
+var MAIN_PIN_Y = (Y_MAX_COORDINATE - Y_MIN_COORDINATE) / 2;
+var MAIN_PIN_SIZE = 200;
+var MAIN_PIN_POINTER_Y = 22;
 var MAX_GUESTS = 5;
 var MAX_ROOMS = 4;
 var MAX_PRICE = 5000;
@@ -36,9 +40,16 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 
+var mainPin = document.querySelector('.map__pin--main');
+
 var currentOfferLocation = {
-  x: getRandomTicket().location.x,
-  y: getRandomTicket().location.y
+  x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
+  y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
+};
+
+var currentOfferLocationActive = {
+  x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
+  y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y
 };
 
 function getRandomInt(min, max) {
@@ -113,22 +124,6 @@ function renderPins(tickets) {
   mapPins.appendChild(fragment);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function disableAdForm() {
   var adForm = document.querySelector('.ad-form');
   var fieldSets = adForm.querySelectorAll('fieldset');
@@ -172,12 +167,6 @@ function updateCurrentOfferLocation(location) {
   addressInput.value = location.x + ', ' + location.y;
 }
 
-updateCurrentOfferLocation(currentOfferLocation);
-disableMapFilters();
-disableAdForm();
-
-var mainPin = document.querySelector('.map__pin--main');
-
 mainPin.addEventListener('click', function (evt) {
   if (evt.button === 0) {
     evt.preventDefault();
@@ -187,6 +176,7 @@ mainPin.addEventListener('click', function (evt) {
 
     enableMapFilters();
     enableAdForm();
+    updateCurrentOfferLocation(currentOfferLocationActive);
 
     var map = document.querySelector('.map');
     var adForm = document.querySelector('.ad-form');
@@ -195,15 +185,10 @@ mainPin.addEventListener('click', function (evt) {
   }
 });
 
-// var formSubmit = document.querySelector('.ad-form__submit');
-
 var roomSelectElement = document.querySelector('#room_number');
 var capacitySelectElement = document.querySelector('#capacity');
 
-roomSelectElement.addEventListener('change', validateRoomsAndGuests);
-capacitySelectElement.addEventListener('change', validateRoomsAndGuests);
-
-var validateRoomsAndGuests = function () {
+function validateRoomsAndGuests() {
   var roomsValue = Number(roomSelectElement.value);
   var capacityValue = Number(capacitySelectElement.value);
 
@@ -217,4 +202,11 @@ var validateRoomsAndGuests = function () {
     capacitySelectElement.setCustomValidity('');
   }
 
-};
+}
+
+updateCurrentOfferLocation(currentOfferLocation);
+disableMapFilters();
+disableAdForm();
+
+roomSelectElement.addEventListener('change', validateRoomsAndGuests);
+capacitySelectElement.addEventListener('change', validateRoomsAndGuests);
