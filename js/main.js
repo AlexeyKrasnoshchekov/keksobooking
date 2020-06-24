@@ -47,11 +47,6 @@ var currentOfferLocation = {
   y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
 };
 
-var currentOfferLocationActive = {
-  x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
-  y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y
-};
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -77,7 +72,7 @@ function getRandomTicket(index) {
     },
     offer: {
       title: TITLE[getRandomInt(0, TITLE.length)],
-      address: '{{location.x}}' + ', ' + '{{location.y}}',
+      address: location.x + ', ' + location.y,
       price: getRandomInt(0, MAX_PRICE),
       type: TYPES[getRandomInt(0, TYPES.length)],
       rooms: getRandomInt(0, MAX_ROOMS),
@@ -176,7 +171,9 @@ mainPin.addEventListener('click', function (evt) {
 
     enableMapFilters();
     enableAdForm();
-    updateCurrentOfferLocation(currentOfferLocationActive);
+
+    currentOfferLocation.y = MAIN_PIN_Y + MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
+    updateCurrentOfferLocation(currentOfferLocation);
 
     var map = document.querySelector('.map');
     var adForm = document.querySelector('.ad-form');
