@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.data = (function () {
     console.log('Модуль data создан!');
     var X_MIN_COORDINATE = 0;
     var X_MAX_COORDINATE = 1200;
@@ -52,43 +52,45 @@
         return randomArray;
     }
     
-    function getRandomTicket(index) {
-        var locationX = getRandomInt(X_MIN_COORDINATE, X_MAX_COORDINATE + 1);
-        var locationY = getRandomInt(Y_MIN_COORDINATE, Y_MAX_COORDINATE + 1);
-    
-        return {
-        author: {
-            avatar: 'img/avatars/user0' + (index + 1) + '.png'
-        },
-        offer: {
-            title: TITLE[getRandomInt(0, TITLE.length)],
-            address: location.x + ', ' + location.y,
-            price: getRandomInt(0, MAX_PRICE),
-            type: TYPES[getRandomInt(0, TYPES.length)],
-            rooms: getRandomInt(0, MAX_ROOMS),
-            guests: getRandomInt(0, MAX_GUESTS),
-            time: TIME[getRandomInt(0, TIME.length)],
-            features: getRandomArray(FEATURES),
-            description: DESCRIPTION[getRandomInt(0, DESCRIPTION.length)],
-            photos: getRandomArray(PHOTOS)
-        },
-        location: {
-            x: locationX,
-            y: locationY
-        },
-        };
-    }
-
-    console.log(getRandomTicket(1));
-
-    function getArrayOfRandomTickets(length) {
-        var randomTickets = [];
-    
-        for (var i = 0; i < length; i++) {
-        var randomTicket = getRandomTicket(i);
-        randomTickets.push(randomTicket);
+    return {
+        getRandomTicket: function(index) {
+            var locationX = getRandomInt(X_MIN_COORDINATE, X_MAX_COORDINATE + 1);
+            var locationY = getRandomInt(Y_MIN_COORDINATE, Y_MAX_COORDINATE + 1);
+        
+            return {
+            author: {
+                avatar: 'img/avatars/user0' + (index + 1) + '.png'
+            },
+            offer: {
+                title: TITLE[getRandomInt(0, TITLE.length)],
+                address: location.x + ', ' + location.y,
+                price: getRandomInt(0, MAX_PRICE),
+                type: TYPES[getRandomInt(0, TYPES.length)],
+                rooms: getRandomInt(0, MAX_ROOMS),
+                guests: getRandomInt(0, MAX_GUESTS),
+                time: TIME[getRandomInt(0, TIME.length)],
+                features: getRandomArray(FEATURES),
+                description: DESCRIPTION[getRandomInt(0, DESCRIPTION.length)],
+                photos: getRandomArray(PHOTOS)
+            },
+            location: {
+                x: locationX,
+                y: locationY
+            },
+            };
         }
-        return randomTickets;
+
+        console.log(getRandomTicket(1));
+
+        getArrayOfRandomTickets: function(length) {
+            var randomTickets = [];
+        
+            for (var i = 0; i < length; i++) {
+            var randomTicket = getRandomTicket(i);
+            randomTickets.push(randomTicket);
+            }
+            return randomTickets;
+        }
     }
 
 })();

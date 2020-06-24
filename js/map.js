@@ -1,5 +1,6 @@
 'use strict';
 
+(function () {
 
 function renderPins(tickets) {
     var pinTemplate = document.querySelector('#pin').content;
@@ -42,3 +43,5 @@ function renderPins(tickets) {
       select.removeAttribute('disabled');
     });
   }
+
+})();
