@@ -1,7 +1,7 @@
 'use strict';
 
-(function () {
-  window.map = {
+window.map = (function () {
+  return {
     renderPins: function (tickets) {
       var pinTemplate = document.querySelector('#pin').content;
       var newPinTemplate = pinTemplate.querySelector('.map__pin');

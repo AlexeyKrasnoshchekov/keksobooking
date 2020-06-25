@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.pin = (function () {
   var MAX_TICKETS_LENGTH = 8;
   var MAIN_PIN_X = (window.data.X_MAX_COORDINATE - window.data.X_MIN_COORDINATE) / 2;
   var MAIN_PIN_Y = (window.data.Y_MAX_COORDINATE - window.data.Y_MIN_COORDINATE) / 2;
@@ -33,5 +33,7 @@
       adForm.classList.remove('ad-form--disabled');
     }
   });
-
+  return {
+    currentOfferLocation: currentOfferLocation
+  };
 })();
