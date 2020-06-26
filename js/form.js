@@ -2,24 +2,11 @@
 
 window.form = (function () {
 
-  function disableAdForm() {
-    var adForm = document.querySelector('.ad-form');
-    var fieldSets = adForm.querySelectorAll('fieldset');
-    fieldSets.forEach(function (fieldSet) {
-      fieldSet.setAttribute('disabled', 'disabled');
-    });
-  }
-
-  function updateCurrentOfferLocation(location) {
-    var addressInput = document.querySelector('#address');
-    addressInput.value = location.x + ', ' + location.y;
-  }
-
-  var roomSelectElement = document.querySelector('#room_number');
-  var capacitySelectElement = document.querySelector('#capacity');
 
   function validateRoomsAndGuests(evt) {
     evt.preventDefault();
+    var roomSelectElement = document.querySelector('#room_number');
+    var capacitySelectElement = document.querySelector('#capacity');
     var roomsValue = Number(roomSelectElement.value);
     var capacityValue = Number(capacitySelectElement.value);
 
@@ -39,25 +26,31 @@ window.form = (function () {
 
   }
 
-  updateCurrentOfferLocation(window.pin.currentOfferLocation);
-  window.map.disableMapFilters();
-  disableAdForm();
+  function enableAdForm() {
+    var adForm = document.querySelector('.ad-form');
+    var fieldSets = adForm.querySelectorAll('fieldset');
+    fieldSets.forEach(function (fieldSet) {
+      fieldSet.removeAttribute('disabled');
+    });
+  }
 
-  roomSelectElement.addEventListener('change', validateRoomsAndGuests);
-  capacitySelectElement.addEventListener('change', validateRoomsAndGuests);
+  function updateCurrentOfferLocation(location) {
+    var addressInput = document.querySelector('#address');
+    addressInput.value = location.x + ', ' + location.y;
+  }
+
+  function disableAdForm() {
+    var adForm = document.querySelector('.ad-form');
+    var fieldSets = adForm.querySelectorAll('fieldset');
+    fieldSets.forEach(function (fieldSet) {
+      fieldSet.setAttribute('disabled', 'disabled');
+    });
+  }
 
   return {
-    enableAdForm: function () {
-      var adForm = document.querySelector('.ad-form');
-      var fieldSets = adForm.querySelectorAll('fieldset');
-      fieldSets.forEach(function (fieldSet) {
-        fieldSet.removeAttribute('disabled');
-      });
-    },
-
-    updateCurrentOfferLocation: function (location) {
-      var addressInput = document.querySelector('#address');
-      addressInput.value = location.x + ', ' + location.y;
-    }
+    enableAdForm: enableAdForm,
+    disableAdForm: disableAdForm,
+    updateCurrentOfferLocation: updateCurrentOfferLocation,
+    validateRoomsAndGuests: validateRoomsAndGuests
   };
 })();

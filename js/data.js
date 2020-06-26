@@ -51,7 +51,6 @@ window.data = (function () {
     return randomArray;
   }
 
-
   function getRandomTicket(index) {
     var locationX = getRandomInt(X_MIN_COORDINATE, X_MAX_COORDINATE + 1);
     var locationY = getRandomInt(Y_MIN_COORDINATE, Y_MAX_COORDINATE + 1);
@@ -79,21 +78,23 @@ window.data = (function () {
     };
   }
 
+  function getArrayOfRandomTickets(length) {
+    var randomTickets = [];
+
+    for (var i = 0; i < length; i++) {
+      var randomTicket = getRandomTicket(i);
+      randomTickets.push(randomTicket);
+    }
+    return randomTickets;
+  }
+
   return {
     X_MIN_COORDINATE: X_MIN_COORDINATE,
     X_MAX_COORDINATE: X_MAX_COORDINATE,
     Y_MIN_COORDINATE: Y_MIN_COORDINATE,
     Y_MAX_COORDINATE: Y_MAX_COORDINATE,
 
-    getArrayOfRandomTickets: function (length) {
-      var randomTickets = [];
-
-      for (var i = 0; i < length; i++) {
-        var randomTicket = getRandomTicket(i);
-        randomTickets.push(randomTicket);
-      }
-      return randomTickets;
-    }
+    getArrayOfRandomTickets: getArrayOfRandomTickets
   };
 
 })();

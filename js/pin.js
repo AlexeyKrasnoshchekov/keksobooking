@@ -7,15 +7,18 @@ window.pin = (function () {
   var MAIN_PIN_SIZE = 200;
   var MAIN_PIN_POINTER_Y = 22;
 
-  var mainPin = document.querySelector('.map__pin--main');
-
   var currentOfferLocation = {
     x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
     y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
   };
 
-  mainPin.addEventListener('click', function (evt) {
-    if (evt.button === 0) {
+  return {
+    currentOfferLocation: currentOfferLocation,
+
+    activateMap: function (evt) {
+      if (evt.button !== 0) {
+        return;
+      }
       evt.preventDefault();
 
       var randomTickets = window.data.getArrayOfRandomTickets(MAX_TICKETS_LENGTH);
@@ -31,9 +34,9 @@ window.pin = (function () {
       var adForm = document.querySelector('.ad-form');
       map.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
+
     }
-  });
-  return {
-    currentOfferLocation: currentOfferLocation
+
   };
 })();
+
