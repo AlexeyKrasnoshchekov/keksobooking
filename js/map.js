@@ -2,7 +2,7 @@
 
 window.map = (function () {
 
-  function renderPins(tickets) {
+    window.load(function renderPins(tickets) {
     var pinTemplate = document.querySelector('#pin').content;
     var newPinTemplate = pinTemplate.querySelector('.map__pin');
     var mapPins = document.querySelector('.map__pins');
@@ -20,7 +20,7 @@ window.map = (function () {
     }
 
     mapPins.appendChild(fragment);
-  }
+  })
 
   function disableMapFilters() {
     var mapFilters = document.querySelector('.map__filters');
