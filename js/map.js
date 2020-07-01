@@ -2,7 +2,7 @@
 
 window.map = (function () {
 
-    function renderPins(tickets) {
+  function renderPins(tickets) {
     var pinTemplate = document.querySelector('#pin').content;
     var newPinTemplate = pinTemplate.querySelector('.map__pin');
     var mapPins = document.querySelector('.map__pins');

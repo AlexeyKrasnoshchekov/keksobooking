@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var url = 'https://javascript.pages.academy/keksobooking/data';
+  var URL = 'https://javascript.pages.academy/keksobooking/data';
   var StatusCode = {
     OK: 200
   };
@@ -29,7 +29,7 @@
 
     xhr.timeout = TIMEOUT_IN_MS;
 
-    xhr.open('GET', url);
+    xhr.open('GET', URL);
     xhr.send();
 
   };

@@ -4,17 +4,6 @@
   var roomSelectElement = document.querySelector('#room_number');
   var capacitySelectElement = document.querySelector('#capacity');
   var mainPin = document.querySelector('.map__pin--main');
-  var url = 'https://javascript.pages.academy/keksobooking/data';
-
-  var onError = function (message) {
-    console.error(message);
-  };
-
-  var onSuccess = function (data) {
-    console.log(data);
-  };
-
-  window.load(url, onSuccess, onError);
 
 
   window.form.updateCurrentOfferLocation(window.pin.currentOfferLocation);
@@ -24,4 +13,5 @@
   roomSelectElement.addEventListener('change', window.form.validateRoomsAndGuests);
   capacitySelectElement.addEventListener('change', window.form.validateRoomsAndGuests);
   mainPin.addEventListener('click', window.pin.activateMap);
+
 })();
