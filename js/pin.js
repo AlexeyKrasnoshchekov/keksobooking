@@ -10,11 +10,25 @@ window.pin = (function () {
   var MAIN_PIN_SIZE = 200;
   var MAIN_PIN_POINTER_Y = 22;
   var tickets = [];
+  var TICKETS_LIMIT = 5;
 
   var currentOfferLocation = {
     x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
     y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
   };
+
+  var houseType = document.querySelector('#type');
+
+  console.log(houseType.value);
+
+  function updatePins(tickets) {
+    //var houseType = tickets.
+    //filter(function(it) {
+        //return it.type === 
+    //});
+
+    window.map.renderPins(tickets);
+  }
 
   function onError() {
 
@@ -22,7 +36,15 @@ window.pin = (function () {
 
   function onSuccess(data) {
     tickets = data;
-    window.map.renderPins(tickets);
+
+    var limitedTickets = tickets.
+    filter(function(ticket, i) {
+        return i <= (TICKETS_LIMIT - 1);    
+    });
+    console.log(1, limitedTickets);   
+      
+    updatePins(limitedTickets);
+
   }
 
   function activateMap(evt) {
@@ -32,8 +54,6 @@ window.pin = (function () {
     evt.preventDefault();
 
     window.load(onSuccess, onError);
-
-    window.map.renderPins(tickets);
 
     window.map.enableMapFilters();
     window.form.enableAdForm();
