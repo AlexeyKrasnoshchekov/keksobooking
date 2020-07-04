@@ -25,16 +25,21 @@ window.pin = (function () {
 
   function onSuccess(data) {
     tickets = data;
-    console.log(22, tickets);
-    
-
+    onHouseTypeChange();
     var limitedTickets = tickets.
     filter(function (ticket, i) {
       return i <= (TICKETS_LIMIT - 1);
     });
-    console.log(1, limitedTickets);
-
     window.map.renderPins(limitedTickets);
+  }
+
+  function onHouseTypeChange() {
+    if (houseType.value !== 'any') {
+      tickets.
+    filter(function (ticket) {
+      return ticket.offer.type === houseType.value;
+    });
+    }
   }
 
 
@@ -44,14 +49,12 @@ window.pin = (function () {
     }
     evt.preventDefault();
 
-    houseType.addEventListener('change', function () {
-        console.log(houseType.value);
-    });
-
     window.load(onSuccess, onError);
 
     window.map.enableMapFilters();
     window.form.enableAdForm();
+
+    houseType.addEventListener('change', onSuccess);
 
     currentOfferLocation.y = MAIN_PIN_Y + MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(currentOfferLocation);

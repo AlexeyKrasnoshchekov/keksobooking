@@ -17,7 +17,6 @@
         filter(function (it) {
           return it.offer !== '';
         });
-        console.log(0, data);
 
         onSuccess(data);
       } else {
