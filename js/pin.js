@@ -17,18 +17,7 @@ window.pin = (function () {
     y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
   };
 
-  var houseType = document.querySelector('#type');
-
-  console.log(houseType.value);
-
-  function updatePins(tickets) {
-    //var houseType = tickets.
-    //filter(function(it) {
-        //return it.type === 
-    //});
-
-    window.map.renderPins(tickets);
-  }
+  var houseType = document.querySelector('#housing-type');
 
   function onError() {
 
@@ -36,22 +25,28 @@ window.pin = (function () {
 
   function onSuccess(data) {
     tickets = data;
+    console.log(22, tickets);
+    
 
     var limitedTickets = tickets.
-    filter(function(ticket, i) {
-        return i <= (TICKETS_LIMIT - 1);    
+    filter(function (ticket, i) {
+      return i <= (TICKETS_LIMIT - 1);
     });
-    console.log(1, limitedTickets);   
-      
-    updatePins(limitedTickets);
+    console.log(1, limitedTickets);
 
+    window.map.renderPins(limitedTickets);
   }
+
 
   function activateMap(evt) {
     if (evt.button !== 0) {
       return;
     }
     evt.preventDefault();
+
+    houseType.addEventListener('change', function () {
+        console.log(houseType.value);
+    });
 
     window.load(onSuccess, onError);
 
@@ -69,7 +64,8 @@ window.pin = (function () {
 
   return {
     currentOfferLocation: currentOfferLocation,
-    activateMap: activateMap
+    activateMap: activateMap,
+    houseType: houseType
   };
 })();
 
