@@ -15,7 +15,7 @@
       if (xhr.status === StatusCode.OK) {
         var data = xhr.response.
         filter(function (it) {
-          return it.offer !== '';
+          return it.offer !== undefined;
         });
 
         onSuccess(data);

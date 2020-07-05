@@ -9,8 +9,9 @@ window.pin = (function () {
   var MAIN_PIN_Y = (Y_MAX_COORDINATE - Y_MIN_COORDINATE) / 2;
   var MAIN_PIN_SIZE = 200;
   var MAIN_PIN_POINTER_Y = 22;
-  var tickets = [];
   var TICKETS_LIMIT = 5;
+  var tickets = [];
+
 
   var currentOfferLocation = {
     x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
@@ -24,24 +25,41 @@ window.pin = (function () {
   }
 
   function onSuccess(data) {
-    tickets = data;
-    onHouseTypeChange();
-    var limitedTickets = tickets.
-    filter(function (ticket, i) {
-      return i <= (TICKETS_LIMIT - 1);
-    });
+
+    var limitedTickets = [];
+    for (var i = 0; i < data.length && i < TICKETS_LIMIT; i++) {
+      limitedTickets.push(data[i]);
+    }
+
     window.map.renderPins(limitedTickets);
   }
 
-  function onHouseTypeChange() {
-    if (houseType.value !== 'any') {
-      tickets.
-    filter(function (ticket) {
-      return ticket.offer.type === houseType.value;
-    });
+  function filterTickets(ticketsToFilter) {
+    var filteredTickets = [];
+
+    for (var i; i < ticketsToFilter.length && filteredTickets.length < TICKETS_LIMIT; i++) {
+      var offer = ticketsToFilter[i];
+
+      if (filterByHouseType(offer)) {
+        filteredTickets.push(offer);
+      }
     }
+    return filteredTickets;
   }
 
+  function filterByHouseType(offer, filterPassed) {
+    var housingType = houseType.value;
+    if ((housingType === 'any') || (housingType === ticket.offer.type)) {
+      return;
+    }
+
+  }
+
+  function onFilterChange() {
+    var filteredTickets = filterTickets(tickets);
+    window.map.remocePins();
+    window.map.renderPins(filteredTickets);
+  }
 
   function activateMap(evt) {
     if (evt.button !== 0) {
@@ -68,7 +86,7 @@ window.pin = (function () {
   return {
     currentOfferLocation: currentOfferLocation,
     activateMap: activateMap,
-    houseType: houseType
+    onFilterChange: onFilterChange
   };
 })();
 
