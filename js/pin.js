@@ -34,12 +34,16 @@ window.pin = (function () {
     window.map.renderPins(limitedTickets);
   }
 
+  function filterByHouseType(ticket) {
+    var housingType = houseType.value;
+    return (housingType === 'any') || (housingType === ticket.offer.type);
+  }
+
   function filterTickets(ticketsToFilter) {
     var filteredTickets = [];
 
     for (var i; i < ticketsToFilter.length && filteredTickets.length < TICKETS_LIMIT; i++) {
       var offer = ticketsToFilter[i];
-
       if (filterByHouseType(offer)) {
         filteredTickets.push(offer);
       }
@@ -47,17 +51,9 @@ window.pin = (function () {
     return filteredTickets;
   }
 
-  function filterByHouseType(offer, filterPassed) {
-    var housingType = houseType.value;
-    if ((housingType === 'any') || (housingType === ticket.offer.type)) {
-      return;
-    }
-
-  }
-
   function onFilterChange() {
     var filteredTickets = filterTickets(tickets);
-    window.map.remocePins();
+    window.map.removePins();
     window.map.renderPins(filteredTickets);
   }
 
@@ -71,8 +67,6 @@ window.pin = (function () {
 
     window.map.enableMapFilters();
     window.form.enableAdForm();
-
-    houseType.addEventListener('change', onSuccess);
 
     currentOfferLocation.y = MAIN_PIN_Y + MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(currentOfferLocation);
