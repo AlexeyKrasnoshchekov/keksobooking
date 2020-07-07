@@ -2,10 +2,12 @@
 
 window.map = (function () {
 
+  var mapFilters = document.querySelector('.map__filters');
+  var mapPins = document.querySelector('.map__pins');
+
   function renderPins(tickets) {
     var pinTemplate = document.querySelector('#pin').content;
     var newPinTemplate = pinTemplate.querySelector('.map__pin');
-    var mapPins = document.querySelector('.map__pins');
 
     var fragment = new DocumentFragment();
     for (var i = 0; i < tickets.length; i++) {
@@ -23,7 +25,7 @@ window.map = (function () {
   }
 
   function disableMapFilters() {
-    var mapFilters = document.querySelector('.map__filters');
+    mapFilters.removeEventListener('change', window.pin.onFilterChange);
     var fieldSet = mapFilters.querySelector('fieldset');
     var selects = mapFilters.querySelectorAll('select');
 
@@ -33,8 +35,14 @@ window.map = (function () {
     });
   }
 
+  function removePins() {
+    while (mapPins.firstChild) {
+      mapPins.removeChild(mapPins.firstChild);
+    }
+  }
+
   function enableMapFilters() {
-    var mapFilters = document.querySelector('.map__filters');
+    mapFilters.addEventListener('change', window.pin.onFilterChange);
     var fieldSet = mapFilters.querySelector('fieldset');
     var selects = mapFilters.querySelectorAll('select');
 
@@ -47,7 +55,8 @@ window.map = (function () {
   return {
     renderPins: renderPins,
     disableMapFilters: disableMapFilters,
-    enableMapFilters: enableMapFilters
+    enableMapFilters: enableMapFilters,
+    removePins: removePins
   };
 
 })();

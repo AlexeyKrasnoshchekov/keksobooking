@@ -13,7 +13,12 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
-        onSuccess(xhr.response);
+        var data = xhr.response.
+        filter(function (it) {
+          return it.offer !== undefined;
+        });
+
+        onSuccess(data);
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
