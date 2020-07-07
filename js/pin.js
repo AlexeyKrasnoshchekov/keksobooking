@@ -25,9 +25,9 @@ window.pin = (function () {
   }
 
   function onSuccess(data) {
-
+    tickets = data;
     var limitedTickets = [];
-    for (var i = 0; i < data.length && i < TICKETS_LIMIT; i++) {
+    for (var i = 0; i < tickets.length && i < TICKETS_LIMIT; i++) {
       limitedTickets.push(data[i]);
     }
 
@@ -42,7 +42,7 @@ window.pin = (function () {
   function filterTickets(ticketsToFilter) {
     var filteredTickets = [];
 
-    for (var i; i < ticketsToFilter.length && filteredTickets.length < TICKETS_LIMIT; i++) {
+    for (var i = 0; i < ticketsToFilter.length && filteredTickets.length < TICKETS_LIMIT; i++) {
       var offer = ticketsToFilter[i];
       if (filterByHouseType(offer)) {
         filteredTickets.push(offer);
