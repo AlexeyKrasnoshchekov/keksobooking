@@ -4,6 +4,7 @@ window.map = (function () {
 
   var mapFilters = document.querySelector('.map__filters');
   var mapPins = document.querySelector('.map__pins');
+  var offerTypes = ['flat', 'bungalo', 'house', 'palace'];
 
   function renderPins(tickets) {
     var pinTemplate = document.querySelector('#pin').content;
@@ -22,6 +23,47 @@ window.map = (function () {
     }
 
     mapPins.appendChild(fragment);
+  }
+
+  function getOfferType(offerType) {
+    switch (offerType) {
+      case 'flat':
+        return 'Квартира';
+      case 'bungalo':
+        return 'Бунгало';
+      case 'house':
+        return 'Дом';
+      case 'palace':
+        return 'Дворец';
+      default:
+        return 'Неизвестно';
+    }
+  }
+
+  function renderCards(tickets) {
+    var cardTemplate = document.querySelector('#card').content;
+    var newCardTemplate = cardTemplate.querySelector('.map__card');
+    var mapContainer = document.querySelector('.map');
+
+    var fragment = new DocumentFragment();
+    for (var i = 0; i < tickets.length; i++) {
+      var newCard = newCardTemplate.cloneNode(true);
+      var ticket = tickets[i];
+      newCard.querySelector('.popup__title').textContent = ticket.offer.title;
+      newCard.querySelector('.popup__text--address').textContent = ticket.offer.address;
+      newCard.querySelector('.popup__text--price').textContent = ticket.offer.price + ' ₽/ночь';
+      newCard.querySelector('.popup__type').textContent = getOfferType(offerTypes[i]);
+      newCard.querySelector('.popup__text--capacity').textContent = ticket.offer.rooms + ' комнаты для ' + ticket.offer.guests + ' гостей';
+      newCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + ticket.offer.checkin + ', выезд до ' + ticket.offer.checkout;
+      newCard.querySelector('.popup__features').textContent = ticket.offer.features;
+      newCard.querySelector('.popup__description').textContent = ticket.offer.description;
+      newCard.querySelector('.popup__photos').src = ticket.offer.photos;
+      newCard.querySelector('.popup__avatar').src = ticket.offer.avatar;
+      // console.log(225, newCard);
+      fragment.appendChild(newCard);
+
+    }
+    mapContainer.appendChild(fragment);
   }
 
   function disableMapFilters() {
@@ -56,7 +98,8 @@ window.map = (function () {
     renderPins: renderPins,
     disableMapFilters: disableMapFilters,
     enableMapFilters: enableMapFilters,
-    removePins: removePins
+    removePins: removePins,
+    renderCards: renderCards
   };
 
 })();
