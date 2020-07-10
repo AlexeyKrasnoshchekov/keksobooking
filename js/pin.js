@@ -32,6 +32,7 @@ window.pin = (function () {
     }
 
     window.map.renderPins(limitedTickets);
+    window.map.renderCard(limitedTickets[0]);
   }
 
   function filterByHouseType(ticket) {
