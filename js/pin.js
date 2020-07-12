@@ -24,6 +24,17 @@ window.pin = (function () {
 
   }
 
+  function pinClickHandler(limitedTicket) {
+
+    var renderedPins = document.querySelectorAll('.map__pin');
+
+
+    renderedPins.forEach(function (renderedPin) {
+      renderedPin.addEventListener('click', window.map.renderCard(limitedTicket));
+    });
+
+  }
+
   function onSuccess(data) {
     tickets = data;
     var limitedTickets = [];
@@ -32,7 +43,14 @@ window.pin = (function () {
     }
 
     window.map.renderPins(limitedTickets);
-    window.map.renderCard(limitedTickets[0]);
+
+    limitedTickets.forEach(function (limitedTicket) {
+      pinClickHandler(limitedTicket);
+    });
+
+    // var ndList = window.map.mapPins.childNodes;
+
+
   }
 
   function filterByHouseType(ticket) {

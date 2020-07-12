@@ -163,6 +163,7 @@ window.map = (function () {
   }
 
   return {
+    mapPins: mapPins,
     renderPins: renderPins,
     disableMapFilters: disableMapFilters,
     enableMapFilters: enableMapFilters,
