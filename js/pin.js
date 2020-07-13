@@ -24,16 +24,16 @@ window.pin = (function () {
 
   }
 
-  function pinClickHandler(limitedTicket) {
+  // function pinClickHandler(limitedTicket) {
 
-    var renderedPins = document.querySelectorAll('.map__pin');
+  //   var renderedPins = document.querySelectorAll('.map__pin');
 
 
-    renderedPins.forEach(function (renderedPin) {
-      renderedPin.addEventListener('click', window.map.renderCard(limitedTicket));
-    });
+  //   renderedPins.forEach(function (renderedPin) {
+  //     renderedPin.addEventListener('click', window.map.renderCard(limitedTicket));
+  //   });
 
-  }
+  // }
 
   function onSuccess(data) {
     tickets = data;
@@ -44,9 +44,7 @@ window.pin = (function () {
 
     window.map.renderPins(limitedTickets);
 
-    limitedTickets.forEach(function (limitedTicket) {
-      pinClickHandler(limitedTicket);
-    });
+   
 
     // var ndList = window.map.mapPins.childNodes;
 

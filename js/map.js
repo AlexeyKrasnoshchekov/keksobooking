@@ -17,11 +17,15 @@ window.map = (function () {
       newPin.style.left = ticket.location.x + 'px';
       newPin.style.top = ticket.location.y + 'px';
       newPin.querySelector('img').src = ticket.author.avatar;
-
+      newPin.addEventListener('click', renderCard(ticket));
       fragment.appendChild(newPin);
     }
 
     mapPins.appendChild(fragment);
+    
+    // renderedPins.forEach(function (renderedPin) {
+    //   renderedPin.addEventListener('click', renderCard(ticket));
+    // });
   }
 
   function getOfferType(offerType) {
