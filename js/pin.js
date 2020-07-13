@@ -44,7 +44,6 @@ window.pin = (function () {
 
     window.map.renderPins(limitedTickets);
 
-   
 
     // var ndList = window.map.mapPins.childNodes;
 
