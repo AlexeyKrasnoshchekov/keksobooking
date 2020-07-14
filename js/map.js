@@ -9,6 +9,7 @@ window.map = (function () {
   function addPinClickHandler(pin, ticket) {
 
     pin.addEventListener('click', function () {
+      removeCard();
       window.map.renderCard(ticket);
     });
 
@@ -17,6 +18,13 @@ window.map = (function () {
   function removePins() {
     while (mapPins.firstChild) {
       mapPins.removeChild(mapPins.firstChild);
+    }
+  }
+
+  function removeCard() {
+    var previousCard = document.querySelector('.map__card');
+    if (previousCard) {
+      previousCard.remove();
     }
   }
 
@@ -32,9 +40,9 @@ window.map = (function () {
       newPin.style.left = ticket.location.x + 'px';
       newPin.style.top = ticket.location.y + 'px';
       newPin.querySelector('img').src = ticket.author.avatar;
-
+      
       addPinClickHandler(newPin, ticket);
-      ticket = {};
+      
       // newPin.addEventListener('click', function () {
       //   window.map.renderCard(ticket);
       // });
@@ -155,7 +163,6 @@ window.map = (function () {
     } else {
       newCard.querySelector('.popup__avatar').style.display = 'none';
     }
-
     mapContainer.appendChild(newCard);
   }
 
