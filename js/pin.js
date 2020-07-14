@@ -12,7 +12,6 @@ window.pin = (function () {
   var TICKETS_LIMIT = 5;
   var tickets = [];
 
-
   var currentOfferLocation = {
     x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
     y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
@@ -24,17 +23,6 @@ window.pin = (function () {
 
   }
 
-  // function pinClickHandler(limitedTicket) {
-
-  //   var renderedPins = document.querySelectorAll('.map__pin');
-
-
-  //   renderedPins.forEach(function (renderedPin) {
-  //     renderedPin.addEventListener('click', window.map.renderCard(limitedTicket));
-  //   });
-
-  // }
-
   function onSuccess(data) {
     tickets = data;
     var limitedTickets = [];
@@ -43,10 +31,6 @@ window.pin = (function () {
     }
 
     window.map.renderPins(limitedTickets);
-
-
-    // var ndList = window.map.mapPins.childNodes;
-
 
   }
 
