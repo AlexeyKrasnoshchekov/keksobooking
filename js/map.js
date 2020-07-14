@@ -7,14 +7,6 @@ window.map = (function () {
   var mapContainer = document.querySelector('.map');
   var previousCard = document.querySelector('.map__card');
 
-  function addPinClickHandler(pin, ticket) {
-
-    pin.addEventListener('click', function () {
-      removeCard();
-      window.map.renderCard(ticket);
-    });
-  }
-
   function removePins() {
     while (mapPins.firstChild) {
       mapPins.removeChild(mapPins.firstChild);
@@ -25,26 +17,46 @@ window.map = (function () {
     if (previousCard) {
       previousCard.remove();
     }
-    previousCard = {};
+    previousCard = null;
   }
+
+
+  // function closeCardHandler() {
+  //   var closePopup = document.querySelector('.popup__close');
+  //   closePopup.addEventListener('click', function () {
+  //     removeCard();
+  //   });
+
+  //   closePopup.addEventListener('keydown', function (evt) {
+  //     if (evt.keyCode === 27) {
+  //       evt.preventDefault();
+  //       removeCard();
+  //     }
+  //   });
+  // }
+
 
   function renderPins(tickets) {
     var pinTemplate = document.querySelector('#pin').content;
     var newPinTemplate = pinTemplate.querySelector('.map__pin');
 
     var fragment = new DocumentFragment();
-    for (var i = 0; i < tickets.length; i++) {
+
+    tickets.forEach(function (ticket) {
       var newPin = newPinTemplate.cloneNode(true);
-      var ticket = tickets[i];
 
       newPin.style.left = ticket.location.x + 'px';
       newPin.style.top = ticket.location.y + 'px';
       newPin.querySelector('img').src = ticket.author.avatar;
 
-      addPinClickHandler(newPin, ticket);
+      newPin.addEventListener('click', function () {
+        removeCard();
+        window.map.renderCard(ticket);
+      });
+
 
       fragment.appendChild(newPin);
-    }
+    });
 
     mapPins.appendChild(fragment);
   }
@@ -67,50 +79,42 @@ window.map = (function () {
   function renderCard(ticket) {
     var cardTemplate = document.querySelector('#card').content;
     var newCardTemplate = cardTemplate.querySelector('.map__card');
-
-
     var newCard = newCardTemplate.cloneNode(true);
     var features = newCard.querySelector('.popup__features');
     var featuresList = newCard.querySelectorAll('.popup__feature');
 
     if (ticket.offer.title) {
       newCard.querySelector('.popup__title').textContent = ticket.offer.title;
-
     } else {
       newCard.querySelector('.popup__title').style.display = 'none';
     }
 
     if (ticket.offer.address) {
       newCard.querySelector('.popup__text--address').textContent = ticket.offer.address;
-
     } else {
       newCard.querySelector('.popup__text--address').style.display = 'none';
     }
 
     if (ticket.offer.price) {
       newCard.querySelector('.popup__text--price').textContent = ticket.offer.price + '₽/ночь';
-
     } else {
       newCard.querySelector('.popup__text--price').style.display = 'none';
     }
 
     if (ticket.offer.type) {
       newCard.querySelector('.popup__type').textContent = getOfferType(ticket.offer.type);
-
     } else {
       newCard.querySelector('.popup__type').style.display = 'none';
     }
 
     if (ticket.offer.rooms && ticket.offer.guests) {
       newCard.querySelector('.popup__text--capacity').textContent = ticket.offer.rooms + ' комнаты для ' + ticket.offer.guests + ' гостей';
-
     } else {
       newCard.querySelector('.popup__text--capacity').style.display = 'none';
     }
 
-    if (ticket.offer.checkin !== '' && ticket.offer.checkout !== '') {
+    if (ticket.offer.checkin && ticket.offer.checkout) {
       newCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + ticket.offer.checkin + ', выезд до ' + ticket.offer.checkout;
-
     } else {
       newCard.querySelector('.popup__text--time').style.display = 'none';
     }
@@ -122,14 +126,12 @@ window.map = (function () {
       ticket.offer.features.forEach(function (feature) {
         features.querySelector('.popup__feature--' + feature).style.display = 'inline-block';
       });
-
     } else {
       newCard.querySelector('.popup__features').style.display = 'none';
     }
 
-    if (ticket.offer.description !== '') {
+    if (ticket.offer.description) {
       newCard.querySelector('.popup__description').textContent = ticket.offer.description;
-
     } else {
       newCard.querySelector('.popup__description').style.display = 'none';
     }
@@ -144,14 +146,12 @@ window.map = (function () {
       });
       newCard.querySelector('.popup__photos').removeChild(photo);
       newCard.querySelector('.popup__photos').appendChild(fragment);
-
     } else {
       newCard.querySelector('.popup__photos').style.display = 'none';
     }
 
-    if (ticket.author.avatar !== '') {
+    if (ticket.author.avatar) {
       newCard.querySelector('.popup__avatar').src = ticket.author.avatar;
-
     } else {
       newCard.querySelector('.popup__avatar').style.display = 'none';
     }

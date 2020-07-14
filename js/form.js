@@ -33,12 +33,16 @@ window.form = (function () {
 
     if (type.value === 'flat') {
       price.min = 1000;
+      price.placeholder = '1000';
     } else if (type.value === 'bungalo') {
       price.min = 0;
+      price.placeholder = '0';
     } else if (type.value === 'house') {
       price.min = 5000;
+      price.placeholder = '5000';
     } else if (type.value === 'palace') {
       price.min = 10000;
+      price.placeholder = '10000';
     }
 
   }
@@ -48,7 +52,7 @@ window.form = (function () {
 
     var timeIn = form.querySelector('#timein');
     var timeOut = form.querySelector('#timeout');
-    
+
     var inValue = timeIn.value;
     timeOut.value = inValue;
   }
@@ -58,7 +62,7 @@ window.form = (function () {
 
     var timeIn = form.querySelector('#timein');
     var timeOut = form.querySelector('#timeout');
-    
+
     var outValue = timeOut.value;
     timeIn.value = outValue;
   }
