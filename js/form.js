@@ -1,7 +1,7 @@
 'use strict';
 
 window.form = (function () {
-
+  var form = document.querySelector('.notice');
 
   function validateRoomsAndGuests(evt) {
     evt.preventDefault();
@@ -24,6 +24,43 @@ window.form = (function () {
 
     }
 
+  }
+
+  function validatePriceAndTypes(evt) {
+    evt.preventDefault();
+    var price = form.querySelector('#price');
+    var type = form.querySelector('#type');
+
+    if (type.value === 'flat') {
+      price.min = 1000;
+    } else if (type.value === 'bungalo') {
+      price.min = 0;
+    } else if (type.value === 'house') {
+      price.min = 5000;
+    } else if (type.value === 'palace') {
+      price.min = 10000;
+    }
+
+  }
+
+  function validateTimeIn(evt) {
+    evt.preventDefault();
+
+    var timeIn = form.querySelector('#timein');
+    var timeOut = form.querySelector('#timeout');
+    
+    var inValue = timeIn.value;
+    timeOut.value = inValue;
+  }
+
+  function validateTimeOut(evt) {
+    evt.preventDefault();
+
+    var timeIn = form.querySelector('#timein');
+    var timeOut = form.querySelector('#timeout');
+    
+    var outValue = timeOut.value;
+    timeIn.value = outValue;
   }
 
   function enableAdForm() {
@@ -51,6 +88,9 @@ window.form = (function () {
     enableAdForm: enableAdForm,
     disableAdForm: disableAdForm,
     updateCurrentOfferLocation: updateCurrentOfferLocation,
-    validateRoomsAndGuests: validateRoomsAndGuests
+    validateRoomsAndGuests: validateRoomsAndGuests,
+    validatePriceAndTypes: validatePriceAndTypes,
+    validateTimeIn: validateTimeIn,
+    validateTimeOut: validateTimeOut
   };
 })();
