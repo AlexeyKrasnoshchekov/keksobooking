@@ -22,7 +22,6 @@ window.map = (function () {
   }
 
   function closeCardOnEcsHandler(evt) {
-    console.log('closeCardOnEcsHandler');
     evt.preventDefault();
     if (evt.keyCode === 27) {
       var closePopup = document.querySelector('.popup__close');
@@ -32,7 +31,6 @@ window.map = (function () {
   }
 
   function closeCardOnClickHandler(evt) {
-    console.log('closeCardOnClickHandler');
     evt.preventDefault();
     removeCard();
     window.removeEventListener('keydown', closeCardOnEcsHandler);
