@@ -8,9 +8,10 @@ window.map = (function () {
   var previousCard = document.querySelector('.map__card');
 
   function removePins() {
-    while (mapPins.firstChild) {
-      mapPins.removeChild(mapPins.firstChild);
-    }
+    var mapPin = document.querySelectorAll('[type=button]');
+    mapPin.forEach(function (pin) {
+      pin.remove();
+    });
   }
 
   function removeCard() {
@@ -20,20 +21,22 @@ window.map = (function () {
     previousCard = null;
   }
 
+  function closeCardOnEcsHandler(evt) {
+    console.log('closeCardOnEcsHandler');
+    evt.preventDefault();
+    if (evt.keyCode === 27) {
+      var closePopup = document.querySelector('.popup__close');
+      closePopup.removeEventListener('click', closeCardOnClickHandler);
+      removeCard();
+    }
+  }
 
-  // function closeCardHandler() {
-  //   var closePopup = document.querySelector('.popup__close');
-  //   closePopup.addEventListener('click', function () {
-  //     removeCard();
-  //   });
-
-  //   closePopup.addEventListener('keydown', function (evt) {
-  //     if (evt.keyCode === 27) {
-  //       evt.preventDefault();
-  //       removeCard();
-  //     }
-  //   });
-  // }
+  function closeCardOnClickHandler(evt) {
+    console.log('closeCardOnClickHandler');
+    evt.preventDefault();
+    removeCard();
+    window.removeEventListener('keydown', closeCardOnEcsHandler);
+  }
 
 
   function renderPins(tickets) {
@@ -155,6 +158,10 @@ window.map = (function () {
     } else {
       newCard.querySelector('.popup__avatar').style.display = 'none';
     }
+
+    var closePopup = newCard.querySelector('.popup__close');
+    closePopup.addEventListener('click', closeCardOnClickHandler, {once: true});
+    window.addEventListener('keydown', closeCardOnEcsHandler, {once: true});
     previousCard = newCard;
     mapContainer.appendChild(newCard);
   }
