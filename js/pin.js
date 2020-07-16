@@ -12,7 +12,6 @@ window.pin = (function () {
   var TICKETS_LIMIT = 5;
   var tickets = [];
 
-
   var currentOfferLocation = {
     x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
     y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
@@ -32,7 +31,7 @@ window.pin = (function () {
     }
 
     window.map.renderPins(limitedTickets);
-    window.map.renderCard(limitedTickets[0]);
+
   }
 
   function filterByHouseType(ticket) {
