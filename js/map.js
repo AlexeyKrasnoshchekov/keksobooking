@@ -29,7 +29,7 @@ window.map = (function () {
 
       newPin.addEventListener('click', function () {
         window.card.removeCard();
-        window.map.renderCard(ticket);
+        window.card.renderCard(ticket);
       });
 
 
