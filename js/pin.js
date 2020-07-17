@@ -1,20 +1,18 @@
 'use strict';
 
 window.pin = (function () {
-  var X_MIN_COORDINATE = 0;
-  var X_MAX_COORDINATE = 1200;
-  var Y_MIN_COORDINATE = 130;
-  var Y_MAX_COORDINATE = 630;
-  var MAIN_PIN_X = (X_MAX_COORDINATE - X_MIN_COORDINATE) / 2;
-  var MAIN_PIN_Y = (Y_MAX_COORDINATE - Y_MIN_COORDINATE) / 2;
-  var MAIN_PIN_SIZE = 200;
+  var X_SHIFT = 570;
+  var Y_SHIFT = 350;
+  var MAIN_PIN_SIZE = 60;
+  var MAIN_PIN_X = X_SHIFT + MAIN_PIN_SIZE / 2;
+  var MAIN_PIN_Y = Y_SHIFT + MAIN_PIN_SIZE / 2;
   var MAIN_PIN_POINTER_Y = 22;
   var TICKETS_LIMIT = 5;
   var tickets = [];
 
   var currentOfferLocation = {
-    x: MAIN_PIN_X + MAIN_PIN_SIZE / 2,
-    y: MAIN_PIN_Y + MAIN_PIN_SIZE / 2
+    x: MAIN_PIN_X,
+    y: MAIN_PIN_Y
   };
 
   var houseType = document.querySelector('#housing-type');
@@ -68,7 +66,7 @@ window.pin = (function () {
     window.map.enableMapFilters();
     window.form.enableAdForm();
 
-    currentOfferLocation.y = MAIN_PIN_Y + MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
+    currentOfferLocation.y += MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(currentOfferLocation);
 
     var map = document.querySelector('.map');

@@ -18,6 +18,7 @@
   timeInSelectElement.addEventListener('change', window.form.validateTimeIn);
   timeOutSelectElement.addEventListener('change', window.form.validateTimeOut);
   capacitySelectElement.addEventListener('change', window.form.validateRoomsAndGuests);
-  mainPin.addEventListener('click', window.pin.activateMap);
+  mainPin.addEventListener('click', window.pin.activateMap, {once: true});
+  window.move();
 
 })();
