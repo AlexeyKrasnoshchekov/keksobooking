@@ -28,11 +28,11 @@
       onError('Произошла ошибка соединения');
     });
 
+    xhr.timeout = TIMEOUT_IN_MS;
+
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-
-    xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.open('GET', URL);
     xhr.send();

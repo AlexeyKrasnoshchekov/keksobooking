@@ -1,7 +1,6 @@
 'use strict';
 
 window.form = (function () {
-  var form = document.querySelector('.notice');
 
   function validateRoomsAndGuests(evt) {
     evt.preventDefault();
@@ -87,6 +86,22 @@ window.form = (function () {
       fieldSet.setAttribute('disabled', 'disabled');
     });
   }
+
+  function deactivatePage() {
+    window.map.disableMapFilters();
+    disableAdForm();
+  }
+
+  var form = document.querySelector('.ad-form');
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.upload(new FormData(form), function () {
+      evt.preventDefault();
+      deactivatePage();
+      form.reset();
+    });
+
+  });
 
   return {
     enableAdForm: enableAdForm,
