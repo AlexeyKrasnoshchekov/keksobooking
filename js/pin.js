@@ -61,7 +61,7 @@ window.pin = (function () {
     }
     evt.preventDefault();
 
-    window.load(onSuccess, onError);
+    window.request.get(onSuccess, onError);
 
     window.map.enableMapFilters();
     window.form.enableAdForm();

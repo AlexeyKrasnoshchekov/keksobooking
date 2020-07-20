@@ -30,6 +30,7 @@ window.map = (function () {
       newPin.addEventListener('click', function () {
         window.card.removeCard();
         window.card.renderCard(ticket);
+        window.success.openSuccess();
       });
 
 
