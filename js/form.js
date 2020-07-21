@@ -2,7 +2,7 @@
 
 window.form = (function () {
   var form = document.querySelector('.ad-form');
-  var submitButton = form.querySelector('.ad-form__submit');
+  var formReset = form.querySelector('.ad-form__reset');
 
   function validateRoomsAndGuests(evt) {
     evt.preventDefault();
@@ -91,23 +91,26 @@ window.form = (function () {
   }
 
   function deactivatePage() {
+    window.map.removePins();
+    var mapOverlay = document.querySelector('.map__overlay');
+    mapOverlay.style.opacity = '1';
+    form.style.opacity = '0.3';
     window.map.disableMapFilters();
     disableAdForm();
   }
-
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.request.post(new FormData(form), function (response) {
       console.log(111, 'ok');
       deactivatePage();
-      // form.reset();
+      form.reset();
+      window.success.openSuccess();
     });
-
   });
 
-  form.addEventListener('submit', window.success);
-  submitButton.addEventListener('click', window.success, {once: true});
+  formReset.addEventListener('click', form.reset(), {once: true});
+
   return {
     enableAdForm: enableAdForm,
     disableAdForm: disableAdForm,

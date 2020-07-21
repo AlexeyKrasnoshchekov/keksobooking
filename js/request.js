@@ -19,6 +19,7 @@ window.request = (function () {
           return it.offer !== undefined;
         });
         onSuccess(data);
+
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
