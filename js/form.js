@@ -1,7 +1,8 @@
 'use strict';
 
 window.form = (function () {
-  var form = document.querySelector('.notice');
+  var form = document.querySelector('.ad-form');
+  var formReset = form.querySelector('.ad-form__reset');
 
   function validateRoomsAndGuests(evt) {
     evt.preventDefault();
@@ -30,6 +31,7 @@ window.form = (function () {
     evt.preventDefault();
     var price = form.querySelector('#price');
     var type = form.querySelector('#type');
+
 
     if (type.value === 'flat') {
       price.min = 1000;
@@ -87,6 +89,29 @@ window.form = (function () {
       fieldSet.setAttribute('disabled', 'disabled');
     });
   }
+
+  function deactivatePage() {
+    window.map.removePins();
+    var mapOverlay = document.querySelector('.map__overlay');
+    mapOverlay.style.opacity = '1';
+    form.style.opacity = '0.3';
+    window.map.disableMapFilters();
+    disableAdForm();
+  }
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.request.post(function () {
+      deactivatePage();
+      form.reset();
+      window.popup.openSuccess();
+    }, function () {
+      window.popup.openError();
+    }, new FormData(form)
+    );
+  });
+
+  formReset.addEventListener('click', form.reset(), {once: true});
 
   return {
     enableAdForm: enableAdForm,
