@@ -8,17 +8,14 @@
   var capacitySelectElement = document.querySelector('#capacity');
   var mainPin = document.querySelector('.map__pin--main');
 
-
   window.form.updateCurrentOfferLocation(window.pin.currentOfferLocation);
-  window.map.disableMapFilters();
-  window.form.disableAdForm();
 
   roomSelectElement.addEventListener('change', window.form.validateRoomsAndGuests);
   typeSelectElement.addEventListener('change', window.form.validatePriceAndTypes);
   timeInSelectElement.addEventListener('change', window.form.validateTimeIn);
   timeOutSelectElement.addEventListener('change', window.form.validateTimeOut);
   capacitySelectElement.addEventListener('change', window.form.validateRoomsAndGuests);
-  mainPin.addEventListener('click', window.pin.activateMap, {once: true});
+  mainPin.addEventListener('click', window.pin.activateMap);
   window.move();
 
 })();
