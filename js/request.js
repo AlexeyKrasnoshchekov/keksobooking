@@ -1,8 +1,8 @@
 'use strict';
 
 window.request = (function () {
-  var URL = 'https://javascript.pages.academy/keksobooking/data';
-  var URLPOST = 'https://javascript.pages.academy/keksobooking';
+  var URL_GET = 'https://javascript.pages.academy/keksobooking/data';
+  var URL_POST = 'https://javascript.pages.academy/keksobooking';
   var StatusCode = {
     OK: 200
   };
@@ -40,14 +40,13 @@ window.request = (function () {
 
   function get(onSuccess, onError) {
     var xhr = create(onSuccess, onError);
-    xhr.open('GET', URL);
+    xhr.open('GET', URL_GET);
     xhr.send();
   }
 
-  function post(onSuccess, onError) {
+  function post(onSuccess, onError, data) {
     var xhr = create(onSuccess, onError);
-    var data = xhr.response;
-    xhr.open('POST', URLPOST);
+    xhr.open('POST', URL_POST);
     xhr.send(data);
   }
 

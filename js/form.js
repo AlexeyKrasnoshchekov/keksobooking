@@ -101,11 +101,14 @@ window.form = (function () {
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.request.post(new FormData(form), function () {
+    window.request.post(function () {
       deactivatePage();
       form.reset();
-      window.success.openSuccess();
-    });
+      window.popup.openSuccess();
+    }, function () {
+      window.popup.openError();
+    }, new FormData(form)
+    );
   });
 
   formReset.addEventListener('click', form.reset(), {once: true});

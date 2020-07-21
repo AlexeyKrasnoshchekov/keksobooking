@@ -1,36 +1,45 @@
 'use strict';
 
-window.success = (function () {
+window.popup = (function () {
   var body = document.querySelector('body');
   var openedSuccess = document.querySelector('#success');
   var openedError = document.querySelector('#error');
 
-  function closePopupOnClickHandler(evt) {
+  function closeSuccessOnClickHandler(evt) {
     evt.preventDefault();
     closeSuccess();
-
-    closeError();
-    window.removeEventListener('keydown', closePopupOnEcsHandler);
+    window.removeEventListener('keydown', closeSuccessOnEcsHandler);
   }
 
-  function closePopupOnEcsHandler(evt) {
+  function closeSuccessOnEcsHandler(evt) {
+    evt.preventDefault();
+    if (evt.keyCode === 27) {
+      closeSuccess();
+      window.removeEventListener('click', closeSuccessOnClickHandler);
+    }
+  }
+
+  function closeErrorOnClickHandler(evt) {
+    evt.preventDefault();
+    closeError();
+    window.removeEventListener('keydown', closeErrorOnEcsHandler);
+  }
+
+  function closeErrorOnEcsHandler(evt) {
     evt.preventDefault();
     if (evt.keyCode === 27) {
 
-      closeSuccess();
-
       closeError();
-      window.removeEventListener('click', closePopupOnClickHandler);
+      window.removeEventListener('click', closeErrorOnClickHandler);
     }
   }
 
   function openSuccess() {
-
     var successTemplate = document.querySelector('#success').content;
     var newSuccessTemplate = successTemplate.querySelector('.success');
     var newSuccess = newSuccessTemplate.cloneNode(true);
-    window.addEventListener('keydown', closePopupOnEcsHandler, {once: true});
-    window.addEventListener('click', closePopupOnClickHandler, {once: true});
+    window.addEventListener('keydown', closeSuccessOnEcsHandler, {once: true});
+    window.addEventListener('click', closeSuccessOnClickHandler, {once: true});
     openedSuccess = newSuccess;
     body.appendChild(newSuccess);
   }
@@ -46,8 +55,8 @@ window.success = (function () {
     var errorTemplate = document.querySelector('#error').content;
     var newErrorTemplate = errorTemplate.querySelector('.error');
     var newError = newErrorTemplate.cloneNode(true);
-    window.addEventListener('keydown', closePopupOnEcsHandler, {once: true});
-    window.addEventListener('click', closePopupOnClickHandler, {once: true});
+    window.addEventListener('keydown', closeErrorOnEcsHandler, {once: true});
+    window.addEventListener('click', closeErrorOnClickHandler, {once: true});
     openedError = newError;
     body.appendChild(newError);
   }
