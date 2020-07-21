@@ -8,8 +8,8 @@ window.success = (function () {
   function closePopupOnClickHandler(evt) {
     evt.preventDefault();
     closeSuccess();
-    
-    // closeError();
+
+    closeError();
     window.removeEventListener('keydown', closePopupOnEcsHandler);
   }
 
@@ -19,13 +19,13 @@ window.success = (function () {
 
       closeSuccess();
 
-      // closeError();
+      closeError();
       window.removeEventListener('click', closePopupOnClickHandler);
     }
   }
 
   function openSuccess() {
-    
+
     var successTemplate = document.querySelector('#success').content;
     var newSuccessTemplate = successTemplate.querySelector('.success');
     var newSuccess = newSuccessTemplate.cloneNode(true);
@@ -43,7 +43,6 @@ window.success = (function () {
   }
 
   function openError() {
-    var body = document.querySelector('body');
     var errorTemplate = document.querySelector('#error').content;
     var newErrorTemplate = errorTemplate.querySelector('.error');
     var newError = newErrorTemplate.cloneNode(true);

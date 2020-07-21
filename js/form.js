@@ -101,8 +101,7 @@ window.form = (function () {
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.request.post(new FormData(form), function (response) {
-      console.log(111, 'ok');
+    window.request.post(new FormData(form), function () {
       deactivatePage();
       form.reset();
       window.success.openSuccess();

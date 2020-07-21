@@ -40,7 +40,6 @@ window.request = (function () {
 
   function get(onSuccess, onError) {
     var xhr = create(onSuccess, onError);
-    console.log(xhr);
     xhr.open('GET', URL);
     xhr.send();
   }
