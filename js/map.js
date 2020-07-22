@@ -3,7 +3,6 @@
 window.map = (function () {
 
   var mapFilters = document.querySelector('.map__filters');
-  var checkbox = mapFilters.querySelector('.map__features');
   var mapPins = document.querySelector('.map__pins');
 
 
@@ -54,7 +53,6 @@ window.map = (function () {
 
   function enableMapFilters() {
     mapFilters.addEventListener('change', window.pin.onFilterChange);
-    checkbox.addEventListener('click', window.pin.onFilterChange);
     var fieldSet = mapFilters.querySelector('fieldset');
     var selects = mapFilters.querySelectorAll('select');
 

@@ -20,14 +20,18 @@ window.pin = (function () {
   var houseRooms = document.querySelector('#housing-rooms');
   var houseGuests = document.querySelector('#housing-guests');
   var featuresFieldset = document.querySelector('#housing-features');
-  
+
 
   function onError() {
 
   }
 
   function onSuccess(data) {
-    tickets = data;
+    tickets = data.
+    filter(function (it) {
+      return it.offer !== undefined;
+    });
+
     var limitedTickets = [];
     for (var i = 0; i < tickets.length && i < TICKETS_LIMIT; i++) {
       limitedTickets.push(data[i]);
@@ -83,34 +87,25 @@ window.pin = (function () {
 
   function filterByFeatures(ticket) {
     var houseFeatures = featuresFieldset.querySelectorAll('input[type=checkbox]');
-    var featureValue = [];
-    for (var i = 0; i < houseFeatures.length; i++) {
-      if (houseFeatures[i].checked === true) {
-      featureValue.push(houseFeatures[i].value);
+    var checkedHouseFeatures = [];
+    houseFeatures.forEach(function (houseFeature) {
+      houseFeature.checked && checkedHouseFeatures.push(houseFeature.value);
+    });
+
+    for (var i = 0; i < checkedHouseFeatures.length; i++) {
+      var checkedHouseFeature = checkedHouseFeatures[i];
+      if (!ticket.offer.features.includes(checkedHouseFeature)) {
+        return false;
       }
     }
-
-    // console.log(444, featureValue);
-
-    var arrFeatures = ticket.offer.features;
-    // console.log(777, arrFeatures);
-
-
-    for (var j = 0; j < arrFeatures.length; j++) {
-      if (arrFeatures.indexOf(featureValue[j]) != -1) {
-        return true;
-      }
-    }
-    // return arrFeatures.includes(featureValue);
+    return true;
   }
 
   function filterTickets(ticketsToFilter) {
     var filteredTickets = [];
     for (var i = 0; i < ticketsToFilter.length && filteredTickets.length < TICKETS_LIMIT; i++) {
       var offer = ticketsToFilter[i];
-      // var t = filterByFeatures(offer);
-      // console.log(555, t);
-      if (filterByHouseType(offer) && filterByHousePrice(offer) && filterByRoomNumber(offer) && filterByGuestNumber(offer)) {
+      if (filterByHouseType(offer) && filterByHousePrice(offer) && filterByRoomNumber(offer) && filterByGuestNumber(offer) && filterByFeatures(offer)) {
         filteredTickets.push(offer);
       }
     }
@@ -135,6 +130,8 @@ window.pin = (function () {
     window.map.enableMapFilters();
     window.form.enableAdForm();
 
+    window.form.validateRoomsAndGuests(evt);
+    window.form.validatePriceAndTypes(evt);
     currentOfferLocation.y += MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(currentOfferLocation);
 
