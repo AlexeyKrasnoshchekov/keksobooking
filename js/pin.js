@@ -3,7 +3,7 @@
 window.pin = (function () {
   var X_SHIFT = 570;
   var Y_SHIFT = 350;
-  var MAIN_PIN_SIZE = 60;
+  var MAIN_PIN_SIZE = 62;
   var MAIN_PIN_X = X_SHIFT + MAIN_PIN_SIZE / 2;
   var MAIN_PIN_Y = Y_SHIFT + MAIN_PIN_SIZE / 2;
   var MAIN_PIN_POINTER_Y = 22;
@@ -14,6 +14,9 @@ window.pin = (function () {
     x: MAIN_PIN_X,
     y: MAIN_PIN_Y
   };
+
+  var map = document.querySelector('.map');
+  var adForm = document.querySelector('.ad-form');
 
   var houseType = document.querySelector('#housing-type');
   var housePrice = document.querySelector('#housing-price');
@@ -135,13 +138,15 @@ window.pin = (function () {
     currentOfferLocation.y += MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(currentOfferLocation);
 
-    var map = document.querySelector('.map');
-    var adForm = document.querySelector('.ad-form');
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
   }
 
   return {
+    MAIN_PIN_SIZE: MAIN_PIN_SIZE,
+    MAIN_PIN_POINTER_Y: MAIN_PIN_POINTER_Y,
+    map: map,
+    adForm: adForm,
     currentOfferLocation: currentOfferLocation,
     activateMap: activateMap,
     onFilterChange: onFilterChange

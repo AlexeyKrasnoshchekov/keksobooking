@@ -60,12 +60,6 @@ window.move = (function () {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
 
-      // var currentOfferLocation = {
-      //   x: (mainPin.offsetLeft - shift.x),
-      //   y: (mainPin.offsetTop - shift.y)
-      // };
-
-      // window.form.updateCurrentOfferLocation(currentOfferLocation);
     }
 
     document.addEventListener('mousemove', onMouseMove);

@@ -92,9 +92,12 @@ window.form = (function () {
 
   function deactivatePage() {
     window.map.removePins();
-    var mapOverlay = document.querySelector('.map__overlay');
-    mapOverlay.style.opacity = '1';
-    form.style.opacity = '0.3';
+    form.reset();
+    window.pin.currentOfferLocation.y -= window.pin.MAIN_PIN_SIZE / 2 + window.pin.MAIN_PIN_POINTER_Y;
+    window.form.updateCurrentOfferLocation(window.pin.currentOfferLocation);
+    window.pin.map.classList.add('map--faded');
+    window.pin.adForm.classList.add('ad-form--disabled');
+
     window.map.disableMapFilters();
     disableAdForm();
   }
@@ -103,7 +106,6 @@ window.form = (function () {
     evt.preventDefault();
     window.request.post(function () {
       deactivatePage();
-      form.reset();
       window.popup.openSuccess();
     }, function () {
       window.popup.openError();
