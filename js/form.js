@@ -92,6 +92,7 @@ window.form = (function () {
 
   function deactivatePage() {
     window.map.removePins();
+    window.card.removeCard();
     form.reset();
     window.pin.currentOfferLocation.y -= window.pin.MAIN_PIN_SIZE / 2 + window.pin.MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(window.pin.currentOfferLocation);
@@ -113,7 +114,9 @@ window.form = (function () {
     );
   });
 
-  formReset.addEventListener('click', form.reset(), {once: true});
+  formReset.addEventListener('click', function() {
+    deactivatePage();
+  }, {once: true});
 
   return {
     enableAdForm: enableAdForm,
