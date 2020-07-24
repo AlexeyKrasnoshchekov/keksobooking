@@ -45,7 +45,6 @@ window.pin = (function () {
 
   function filterByHouseType(ticket) {
     var housingType = houseType.value;
-    console.log(ticket);
     return (housingType === 'any') || (housingType === ticket.offer.type);
   }
 
@@ -114,12 +113,16 @@ window.pin = (function () {
     return filteredTickets;
   }
 
+
   function onFilterChange() {
-    var filteredTickets = filterTickets(tickets);
-    window.map.removePins();
-    window.card.removeCard();
-    window.map.renderPins(filteredTickets);
+    window.debounce.debounce(function () {
+      var filteredTickets = filterTickets(tickets);
+      window.map.removePins();
+      window.card.removeCard();
+      window.map.renderPins(filteredTickets);
+    });
   }
+
 
   function activateMap(evt) {
     if (evt.button !== 0) {
