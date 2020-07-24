@@ -115,12 +115,10 @@ window.pin = (function () {
 
 
   function onFilterChange() {
-    window.debounce.debounce(function () {
-      var filteredTickets = filterTickets(tickets);
-      window.map.removePins();
-      window.card.removeCard();
-      window.map.renderPins(filteredTickets);
-    });
+    var filteredTickets = filterTickets(tickets);
+    window.map.removePins();
+    window.card.removeCard();
+    window.map.renderPins(filteredTickets);
   }
 
 
