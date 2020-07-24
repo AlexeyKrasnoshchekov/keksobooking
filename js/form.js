@@ -3,6 +3,7 @@
 window.form = (function () {
   var form = document.querySelector('.ad-form');
   var formReset = form.querySelector('.ad-form__reset');
+  var mainPin = document.querySelector('.map__pin--main');
 
   function validateRoomsAndGuests(evt) {
     evt.preventDefault();
@@ -27,8 +28,7 @@ window.form = (function () {
 
   }
 
-  function validatePriceAndTypes(evt) {
-    evt.preventDefault();
+  function validatePriceAndTypes() {
     var price = form.querySelector('#price');
     var type = form.querySelector('#type');
 
@@ -49,9 +49,7 @@ window.form = (function () {
 
   }
 
-  function validateTimeIn(evt) {
-    evt.preventDefault();
-
+  function validateTimeIn() {
     var timeIn = form.querySelector('#timein');
     var timeOut = form.querySelector('#timeout');
 
@@ -59,9 +57,7 @@ window.form = (function () {
     timeOut.value = inValue;
   }
 
-  function validateTimeOut(evt) {
-    evt.preventDefault();
-
+  function validateTimeOut() {
     var timeIn = form.querySelector('#timein');
     var timeOut = form.querySelector('#timeout');
 
@@ -94,8 +90,12 @@ window.form = (function () {
     window.map.removePins();
     window.card.removeCard();
     form.reset();
+    mainPin.addEventListener('click', window.pin.activateMap, {once: true});
     window.pin.currentOfferLocation.y -= window.pin.MAIN_PIN_SIZE / 2 + window.pin.MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(window.pin.currentOfferLocation);
+    mainPin.style.top = window.pin.currentOfferLocation.y + 'px';
+    mainPin.style.left = window.pin.currentOfferLocation.x + 'px';
+
     window.pin.map.classList.add('map--faded');
     window.pin.adForm.classList.add('ad-form--disabled');
 
@@ -114,7 +114,7 @@ window.form = (function () {
     );
   });
 
-  formReset.addEventListener('click', function() {
+  formReset.addEventListener('click', function () {
     deactivatePage();
   }, {once: true});
 
@@ -125,6 +125,7 @@ window.form = (function () {
     validateRoomsAndGuests: validateRoomsAndGuests,
     validatePriceAndTypes: validatePriceAndTypes,
     validateTimeIn: validateTimeIn,
-    validateTimeOut: validateTimeOut
+    validateTimeOut: validateTimeOut,
+    deactivatePage: deactivatePage
   };
 })();

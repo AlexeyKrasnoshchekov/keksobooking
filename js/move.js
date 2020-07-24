@@ -5,12 +5,11 @@ window.move = (function () {
   var X_MAX_COORDINATE = 1200;
   var Y_MIN_COORDINATE = 130;
   var Y_MAX_COORDINATE = 630;
-  var MAIN_PIN_SIZE = 60;
+  var MAIN_PIN_SIZE = 62;
   var MAIN_PIN_POINTER_Y = 22;
-
   var mainPin = document.querySelector('.map__pin--main');
 
-  mainPin.addEventListener('mousedown', function (evt) {
+  function onMouseDown(evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -65,11 +64,9 @@ window.move = (function () {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
 
-  });
-
+  }
   return {
-
-
+    onMouseDown: onMouseDown
   };
-});
+})();
 

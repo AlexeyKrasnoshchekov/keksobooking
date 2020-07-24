@@ -41,7 +41,6 @@ window.pin = (function () {
     }
 
     window.map.renderPins(limitedTickets);
-
   }
 
   function filterByHouseType(ticket) {
