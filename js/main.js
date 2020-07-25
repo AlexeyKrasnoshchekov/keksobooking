@@ -22,6 +22,8 @@
     checkboxFilter.addEventListener('keydown', function (evt) {
       if (evt.key === 'Enter') {
         checkboxFilter.checked = !checkboxFilter.checked;
+        var event = new Event('change', {bubbles: true});
+        checkboxFilter.dispatchEvent(event);
       }
     });
   });
@@ -32,6 +34,8 @@
       if (evt.key === 'Enter') {
         evt.preventDefault();
         checkboxForm.checked = !checkboxForm.checked;
+        var event = new Event('change', {bubbles: true});
+        checkboxForm.dispatchEvent(event);
       }
     });
   });

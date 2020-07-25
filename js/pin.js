@@ -134,6 +134,11 @@ window.pin = (function () {
     window.map.enableMapFilters();
     window.form.enableAdForm();
 
+    var imgFiles = window.form.form.querySelectorAll('input[type=file]');
+    imgFiles.forEach(function (imgFile) {
+      imgFile.addEventListener('change', window.form.previewFile);
+    });
+
     window.form.validateRoomsAndGuests(evt);
     window.form.validatePriceAndTypes(evt);
     currentOfferLocation.y += MAIN_PIN_SIZE / 2 + MAIN_PIN_POINTER_Y;
