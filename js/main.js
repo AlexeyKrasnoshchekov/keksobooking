@@ -17,5 +17,22 @@
   timeInSelectElement.addEventListener('change', window.form.validateTimeIn);
   timeOutSelectElement.addEventListener('change', window.form.validateTimeOut);
 
+  var checkboxesFilter = document.querySelectorAll('.map__checkbox');
+  checkboxesFilter.forEach(function (checkboxFilter) {
+    checkboxFilter.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Enter') {
+        checkboxFilter.checked = !checkboxFilter.checked;
+      }
+    });
+  });
 
+  var checkboxesForm = document.querySelectorAll('.feature__checkbox');
+  checkboxesForm.forEach(function (checkboxForm) {
+    checkboxForm.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Enter') {
+        evt.preventDefault();
+        checkboxForm.checked = !checkboxForm.checked;
+      }
+    });
+  });
 })();

@@ -50,26 +50,24 @@ window.pin = (function () {
 
   function filterByHousePrice(ticket) {
     var housingPrice = housePrice.value;
-    var checkOfferPrice = false;
     if (housingPrice === 'any') {
-      checkOfferPrice = true;
-      return checkOfferPrice;
-    } else if (housingPrice === 'middle' && ticket.offer.price >= 10000 && ticket.offer.price < 50000) {
-      checkOfferPrice = true;
-      return checkOfferPrice;
-    } else if (housingPrice === 'low' && ticket.offer.price < 10000) {
-      checkOfferPrice = true;
-      return checkOfferPrice;
-    } else if (housingPrice === 'high' && ticket.offer.price >= 50000) {
-      checkOfferPrice = true;
-      return checkOfferPrice;
+      return true;
     }
-
+    if (housingPrice === 'middle' && ticket.offer.price >= 10000 && ticket.offer.price < 50000) {
+      return true;
+    }
+    if (housingPrice === 'low' && ticket.offer.price < 10000) {
+      return true;
+    }
+    if (housingPrice === 'high' && ticket.offer.price >= 50000) {
+      return true;
+    }
+    return false;
   }
 
   function filterByRoomNumber(ticket) {
     if (houseRooms.value !== 'any') {
-      var housingRooms = parseInt(houseRooms.value);
+      var housingRooms = parseInt(houseRooms.value, 10);
     } else {
       return true;
     }
@@ -79,18 +77,21 @@ window.pin = (function () {
 
   function filterByGuestNumber(ticket) {
     if (houseGuests.value !== 'any') {
-      var housingGuests = parseInt(houseGuests.value);
+      var housingGuests = parseInt(houseGuests.value, 10);
     } else {
       return true;
     }
     return (housingGuests === 'any') || (housingGuests === ticket.offer.guests);
   }
 
+
   function filterByFeatures(ticket) {
     var houseFeatures = featuresFieldset.querySelectorAll('input[type=checkbox]');
     var checkedHouseFeatures = [];
     houseFeatures.forEach(function (houseFeature) {
-      houseFeature.checked && checkedHouseFeatures.push(houseFeature.value);
+      if (houseFeature.checked) {
+        checkedHouseFeatures.push(houseFeature.value);
+      }
     });
 
     for (var i = 0; i < checkedHouseFeatures.length; i++) {

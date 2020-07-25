@@ -103,27 +103,6 @@ window.form = (function () {
     disableAdForm();
   }
 
-  var emgFields = form.querySelectorAll('input[type=file]');
-  function previewFile() {
-    var preview = form.querySelector('img');
-    var file = form.querySelector('input[type=file]').files[0];
-    var reader = new FileReader();
-
-    reader.onloadend = function () {
-      preview.src = reader.result;
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = '';
-    }
-  }
-
-  emgFields.forEach(function (emgField) {
-    emgField.addEventListener('change', previewFile);
-  });
-
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.request.post(function () {

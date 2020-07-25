@@ -52,7 +52,7 @@ window.map = (function () {
   }
 
   function enableMapFilters() {
-    mapFilters.addEventListener('change', window.pin.onFilterChange);
+    mapFilters.addEventListener('change', window.debounce.debounce(window.pin.onFilterChange));
     var fieldSet = mapFilters.querySelector('fieldset');
     var selects = mapFilters.querySelectorAll('select');
 
