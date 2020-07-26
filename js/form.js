@@ -1,6 +1,11 @@
 'use strict';
 
 window.form = (function () {
+  var MIN_BUNGALO_PRICE = 0;
+  var MIN_FLAT_PRICE = 1000;
+  var MIN_HOUSE_PRICE = 5000;
+  var MIN_PALACE_PRICE = 10000;
+
   var form = document.querySelector('.ad-form');
   var formReset = form.querySelector('.ad-form__reset');
   var mainPin = document.querySelector('.map__pin--main');
@@ -34,17 +39,17 @@ window.form = (function () {
 
 
     if (type.value === 'flat') {
-      price.min = 1000;
-      price.placeholder = '1000';
+      price.min = MIN_FLAT_PRICE;
+      price.placeholder = MIN_FLAT_PRICE;
     } else if (type.value === 'bungalo') {
-      price.min = 0;
-      price.placeholder = '0';
+      price.min = MIN_BUNGALO_PRICE;
+      price.placeholder = MIN_BUNGALO_PRICE;
     } else if (type.value === 'house') {
-      price.min = 5000;
-      price.placeholder = '5000';
+      price.min = MIN_HOUSE_PRICE;
+      price.placeholder = MIN_HOUSE_PRICE;
     } else if (type.value === 'palace') {
-      price.min = 10000;
-      price.placeholder = '10000';
+      price.min = MIN_PALACE_PRICE;
+      price.placeholder = MIN_PALACE_PRICE;
     }
 
   }
@@ -87,7 +92,6 @@ window.form = (function () {
   }
 
   function previewFile() {
-    console.log('111');
     var preview = form.querySelector('img');
     var file = form.querySelector('input[type=file]').files[0];
     var reader = new FileReader();
