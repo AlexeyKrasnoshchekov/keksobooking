@@ -134,10 +134,10 @@ window.pin = (function () {
     window.map.enableMapFilters();
     window.form.enableAdForm();
 
-    var imgFiles = window.form.form.querySelectorAll('input[type=file]');
-    imgFiles.forEach(function (imgFile) {
-      imgFile.addEventListener('change', window.form.previewFile);
-    });
+    // var imgFiles = window.form.form.querySelectorAll('input[type=file]');
+    // imgFiles.forEach(function (imgFile) {
+    //   imgFile.addEventListener('change', window.form.previewFile);
+    // });
 
     window.form.validateRoomsAndGuests(evt);
     window.form.validatePriceAndTypes(evt);

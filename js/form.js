@@ -91,22 +91,22 @@ window.form = (function () {
     });
   }
 
-  function previewFile() {
-    var preview = form.querySelector('img');
-    var file = form.querySelector('input[type=file]').files[0];
-    var reader = new FileReader();
+  // function previewFile() {
+  //   var preview = form.querySelector('img');
+  //   var file = form.querySelector('input[type=file]').files[0];
+  //   var reader = new FileReader();
 
-    reader.onloadend = function () {
-      preview.src = reader.result;
-    };
+  //   reader.onloadend = function () {
+  //     preview.src = reader.result;
+  //   };
 
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = '';
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     preview.src = '';
 
-    }
-  }
+  //   }
+  // }
 
 
   function deactivatePage() {
@@ -144,7 +144,6 @@ window.form = (function () {
   return {
     form: form,
     enableAdForm: enableAdForm,
-    previewFile: previewFile,
     disableAdForm: disableAdForm,
     updateCurrentOfferLocation: updateCurrentOfferLocation,
     validateRoomsAndGuests: validateRoomsAndGuests,
