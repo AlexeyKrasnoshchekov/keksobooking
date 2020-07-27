@@ -1,21 +1,14 @@
 'use strict';
 
 (function () {
-  var timeInSelectElement = document.querySelector('#timein');
-  var timeOutSelectElement = document.querySelector('#timeout');
-  var roomSelectElement = document.querySelector('#room_number');
-  var typeSelectElement = document.querySelector('#type');
-  var capacitySelectElement = document.querySelector('#capacity');
-  var mainPin = document.querySelector('.map__pin--main');
-
   window.form.deactivatePage();
-  mainPin.addEventListener('mousedown', window.move.onMouseDown);
+  window.form.mainPin.addEventListener('mousedown', window.move.onMouseDown);
 
-  roomSelectElement.addEventListener('change', window.form.onRoomsAndGuestsChange);
-  capacitySelectElement.addEventListener('change', window.form.onRoomsAndGuestsChange);
-  typeSelectElement.addEventListener('change', window.form.onPriceAndTypesChange);
-  timeInSelectElement.addEventListener('change', window.form.onTimeInChange);
-  timeOutSelectElement.addEventListener('change', window.form.onTimeOutChange);
+  window.form.roomNumber.addEventListener('change', window.form.onRoomsAndGuestsChange);
+  window.form.capacity.addEventListener('change', window.form.onRoomsAndGuestsChange);
+  window.form.type.addEventListener('change', window.form.onPriceAndTypesChange);
+  window.form.timeIn.addEventListener('change', window.form.onTimeInChange);
+  window.form.timeOut.addEventListener('change', window.form.onTimeOutChange);
 
   var checkboxesFilter = document.querySelectorAll('.map__checkbox');
   checkboxesFilter.forEach(function (checkboxFilter) {

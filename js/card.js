@@ -1,8 +1,7 @@
 'use strict';
 
 window.card = (function () {
-  var previousCard = document.querySelector('.map__card');
-  var mapContainer = document.querySelector('.map');
+  var previousCard;
 
   function getOfferType(offerType) {
     switch (offerType) {
@@ -132,7 +131,7 @@ window.card = (function () {
     closePopup.addEventListener('click', closeCardOnClickHandler, {once: true});
     window.addEventListener('keydown', closeCardOnEcsHandler, {once: true});
     previousCard = newCard;
-    mapContainer.appendChild(newCard);
+    window.pin.map.appendChild(newCard);
   }
 
   return {
