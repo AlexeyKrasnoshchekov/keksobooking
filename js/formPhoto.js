@@ -9,11 +9,18 @@
     HOUSING_PHOTO_HEIGHT: 70
   };
 
+  var fileChoosers = document.querySelectorAll('input[type=file]');
   var fileChooser = document.querySelector('input[type=file]');
   var avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
   var housingPhotoPreviewElement = document.querySelector('.ad-form__photo');
 
-  fileChooser.addEventListener('change', function () {
+
+  fileChoosers[0].addEventListener('change', chooser0);
+  fileChoosers[1].addEventListener('change', chooser1);
+
+  
+
+  function chooser0() {
     var file = fileChooser.files[0];
     var fileName = file.name.toLowerCase();
 
@@ -28,6 +35,24 @@
         avatarPreviewElement.src = reader.result;
         avatarPreviewElement.width = ImgSize.AVATAR_WIDTH;
         avatarPreviewElement.height = ImgSize.AVATAR_HEIGHT;
+      });
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function chooser1() {
+    var file = fileChooser.files[0];
+    var fileName = file.name.toLowerCase();
+
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
 
         var housingPhoto = document.createElement('img');
         housingPhoto.src = reader.result;
@@ -38,5 +63,5 @@
 
       reader.readAsDataURL(file);
     }
-  });
+  }
 })();
