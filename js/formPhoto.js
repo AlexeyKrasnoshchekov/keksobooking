@@ -18,7 +18,6 @@
   fileChoosers[0].addEventListener('change', chooser0);
   fileChoosers[1].addEventListener('change', chooser1);
 
-  
 
   function chooser0() {
     var file = fileChooser.files[0];
