@@ -11,11 +11,11 @@
   window.form.deactivatePage();
   mainPin.addEventListener('mousedown', window.move.onMouseDown);
 
-  roomSelectElement.addEventListener('change', window.form.validateRoomsAndGuests);
-  capacitySelectElement.addEventListener('change', window.form.validateRoomsAndGuests);
-  typeSelectElement.addEventListener('change', window.form.validatePriceAndTypes);
-  timeInSelectElement.addEventListener('change', window.form.validateTimeIn);
-  timeOutSelectElement.addEventListener('change', window.form.validateTimeOut);
+  roomSelectElement.addEventListener('change', window.form.onRoomsAndGuestsChange);
+  capacitySelectElement.addEventListener('change', window.form.onRoomsAndGuestsChange);
+  typeSelectElement.addEventListener('change', window.form.onPriceAndTypesChange);
+  timeInSelectElement.addEventListener('change', window.form.onTimeInChange);
+  timeOutSelectElement.addEventListener('change', window.form.onTimeOutChange);
 
   var checkboxesFilter = document.querySelectorAll('.map__checkbox');
   checkboxesFilter.forEach(function (checkboxFilter) {

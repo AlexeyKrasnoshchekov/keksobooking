@@ -10,7 +10,7 @@ window.form = (function () {
   var formReset = form.querySelector('.ad-form__reset');
   var mainPin = document.querySelector('.map__pin--main');
 
-  function validateRoomsAndGuests(evt) {
+  function onRoomsAndGuestsChange(evt) {
     evt.preventDefault();
     var roomSelectElement = document.querySelector('#room_number');
     var capacitySelectElement = document.querySelector('#capacity');
@@ -33,7 +33,7 @@ window.form = (function () {
 
   }
 
-  function validatePriceAndTypes() {
+  function onPriceAndTypesChange() {
     var price = form.querySelector('#price');
     var type = form.querySelector('#type');
 
@@ -54,7 +54,7 @@ window.form = (function () {
 
   }
 
-  function validateTimeIn() {
+  function onTimeInChange() {
     var timeIn = form.querySelector('#timein');
     var timeOut = form.querySelector('#timeout');
 
@@ -62,7 +62,7 @@ window.form = (function () {
     timeOut.value = inValue;
   }
 
-  function validateTimeOut() {
+  function onTimeOutChange() {
     var timeIn = form.querySelector('#timein');
     var timeOut = form.querySelector('#timeout');
 
@@ -90,24 +90,6 @@ window.form = (function () {
       fieldSet.setAttribute('disabled', 'disabled');
     });
   }
-
-  // function previewFile() {
-  //   var preview = form.querySelector('img');
-  //   var file = form.querySelector('input[type=file]').files[0];
-  //   var reader = new FileReader();
-
-  //   reader.onloadend = function () {
-  //     preview.src = reader.result;
-  //   };
-
-  //   if (file) {
-  //     reader.readAsDataURL(file);
-  //   } else {
-  //     preview.src = '';
-
-  //   }
-  // }
-
 
   function deactivatePage() {
     window.map.removePins();
@@ -146,10 +128,10 @@ window.form = (function () {
     enableAdForm: enableAdForm,
     disableAdForm: disableAdForm,
     updateCurrentOfferLocation: updateCurrentOfferLocation,
-    validateRoomsAndGuests: validateRoomsAndGuests,
-    validatePriceAndTypes: validatePriceAndTypes,
-    validateTimeIn: validateTimeIn,
-    validateTimeOut: validateTimeOut,
+    onRoomsAndGuestsChange: onRoomsAndGuestsChange,
+    onPriceAndTypesChange: onPriceAndTypesChange,
+    onTimeInChange: onTimeInChange,
+    onTimeOutChange: onTimeOutChange,
     deactivatePage: deactivatePage
   };
 })();
