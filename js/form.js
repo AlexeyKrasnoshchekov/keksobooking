@@ -88,6 +88,8 @@ window.form = (function () {
     window.map.removePins();
     window.card.removeCard();
     form.reset();
+    window.formPhoto.avatarPreviewElement.src = window.formPhoto.oldPreviewSrc;
+    window.formPhoto.removeHousingPhoto();
     mainPin.addEventListener('click', window.pin.activateMap, {once: true});
     window.pin.currentOfferLocation.y -= window.pin.MAIN_PIN_SIZE / 2 + window.pin.MAIN_PIN_POINTER_Y;
     window.form.updateCurrentOfferLocation(window.pin.currentOfferLocation);
@@ -114,7 +116,7 @@ window.form = (function () {
 
   formReset.addEventListener('click', function () {
     deactivatePage();
-  }, {once: true});
+  });
 
   return {
     form: form,

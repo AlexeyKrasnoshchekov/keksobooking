@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.formPhoto = (function () {
   var FILE_TYPES = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'];
   var ImgSize = {
     AVATAR_WIDTH: 40,
@@ -18,6 +18,7 @@
   var avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
   var housingPhotoField = document.querySelector('.ad-form__upload input[type=file]');
   var housingPhotoPreviewElement = document.querySelector('.ad-form__photo');
+  var oldPreviewSrc = avatarPreviewElement.src;
 
   function validFileType(file) {
     return FILE_TYPES.includes(file.type);
@@ -30,11 +31,22 @@
   }
 
   function addHousingPhoto(image) {
-    var housingPhoto = document.createElement('img');
-    housingPhoto.src = image;
-    housingPhoto.width = ImgSize.HOUSING_PHOTO_WIDTH;
-    housingPhoto.height = ImgSize.HOUSING_PHOTO_HEIGHT;
-    housingPhotoPreviewElement.appendChild(housingPhoto);
+    if (!housingPhotoPreviewElement.hasChildNodes()) {
+      var housingPhoto = document.createElement('img');
+      housingPhoto.className = 'housingImg';
+      housingPhoto.src = image;
+      housingPhoto.width = ImgSize.HOUSING_PHOTO_WIDTH;
+      housingPhoto.height = ImgSize.HOUSING_PHOTO_HEIGHT;
+      housingPhotoPreviewElement.appendChild(housingPhoto);
+    } else {
+      housingPhotoPreviewElement.querySelector('.housingImg').src = image;
+    }
+  }
+
+  function removeHousingPhoto() {
+    while (housingPhotoPreviewElement.firstChild) {
+      housingPhotoPreviewElement.removeChild(housingPhotoPreviewElement.lastChild);
+    }
   }
 
   avatarField.addEventListener('change', onChooseImage);
@@ -61,4 +73,9 @@
       reader.readAsDataURL(file);
     }
   }
+  return {
+    oldPreviewSrc: oldPreviewSrc,
+    avatarPreviewElement: avatarPreviewElement,
+    removeHousingPhoto: removeHousingPhoto
+  };
 })();
